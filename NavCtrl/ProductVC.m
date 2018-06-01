@@ -26,9 +26,17 @@
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
         self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
-    } else {
+    } else if([self.title isEqualToString:@"Samsung mobile devices"]){
         self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
+    }else if([self.title isEqualToString:@"Motorola mobile devices"]){
+        self.products = @[@"Droid", @"Droid 2", @"Droid X"];
+    }else if([self.title isEqualToString:@"Nokia mobile devices"]){
+        self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
+    }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
+        self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
     }
+    
+    
     [self.tableView reloadData];
 }
 
@@ -42,14 +50,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.products count];
 }
