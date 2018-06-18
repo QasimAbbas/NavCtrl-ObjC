@@ -7,6 +7,7 @@
 //
 
 #import "CompanyVC.h"
+#import "Company.h"
 
 @interface CompanyVC ()
 
@@ -22,8 +23,9 @@
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
     self.navigationItem.rightBarButtonItem = editButton;
     
+    Company *company = [[Company alloc] initWithName:@"Apple mobile devices"];
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices"];
+    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"Motorola mobile devices", @"Nokia mobile devices", @"Huwawei mobile devices"];
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
 }
@@ -49,14 +51,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.companyList count];
 }
@@ -66,14 +68,29 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
+    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"img-companyLogo_%li", [indexPath row]]];
+    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    
+    cell.imageView.image = img;
     return cell;
+    
+    
+}
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 
@@ -126,8 +143,14 @@
     self.productViewController = [[ProductVC alloc]init];
     if (indexPath.row == 0){
         self.productViewController.title = @"Apple mobile devices";
-    } else {
+    } else if(indexPath.row == 1){
         self.productViewController.title = @"Samsung mobile devices";
+    }else if(indexPath.row == 2){
+        self.productViewController.title = @"Motorola mobile devices";
+    }else if(indexPath.row == 3){
+        self.productViewController.title = @"Nokia mobile devices";
+    }else if(indexPath.row == 4){
+        self.productViewController.title = @"Huwawei mobile devices";
     }
     
     [self.navigationController
@@ -149,6 +172,7 @@
 
 - (void)dealloc {
     [_tableView release];
+    [_companyList release];
     [super dealloc];
 }
 @end

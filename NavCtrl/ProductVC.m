@@ -7,7 +7,7 @@
 //
 
 #import "ProductVC.h"
-
+#import "ProductWebViewController.h"
 @interface ProductVC ()
 
 @end
@@ -26,9 +26,16 @@
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
         self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
-    } else {
+    } else if([self.title isEqualToString:@"Samsung mobile devices"]){
         self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
+    }else if([self.title isEqualToString:@"Motorola mobile devices"]){
+        self.products = @[@"Droid", @"Droid 2", @"Droid X"];
+    }else if([self.title isEqualToString:@"Nokia mobile devices"]){
+        self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
+    }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
+        self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
     }
+    
     [self.tableView reloadData];
 }
 
@@ -42,14 +49,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.products count];
 }
@@ -105,7 +112,7 @@
  }
  */
 
-/*
+
  #pragma mark - Table view delegate
  
  // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -113,15 +120,17 @@
  {
  // Navigation logic may go here, for example:
  // Create the next view controller.
- <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     self.webViewController = [[ProductWebViewController alloc] init];
  
  // Pass the selected object to the new view controller.
+     
+    
  
  // Push the view controller.
- [self.navigationController pushViewController:detailViewController animated:YES];
+ [self.navigationController pushViewController:_webViewController animated:YES];
  }
  
- */
+ 
 
 
 - (void)dealloc {
