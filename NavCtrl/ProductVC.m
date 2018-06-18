@@ -17,24 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
-        self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
-    } else if([self.title isEqualToString:@"Samsung mobile devices"]){
-        self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
-    }else if([self.title isEqualToString:@"Motorola mobile devices"]){
-        self.products = @[@"Droid", @"Droid 2", @"Droid X"];
-    }else if([self.title isEqualToString:@"Nokia mobile devices"]){
-        self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
-    }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
-        self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
-    }
     
     [self.tableView reloadData];
 }
@@ -58,7 +47,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.products count];
+    return [self.company.products count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,48 +58,78 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+    
+    cell.textLabel.text = [self.company.products objectAtIndex:[indexPath row]].name;
+    
+    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@", [self.company.products objectAtIndex:[indexPath row]].name]];
+    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    
+    cell.imageView.image = img;
+    
     return cell;
 }
 
-/*
+- (void)setEditing:(BOOL)editing
+          animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing];
+    
+}
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
  return YES;
  }
- */
+ 
 
-/*
+
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
  {
  if (editingStyle == UITableViewCellEditingStyleDelete) {
  // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     
+     [self.company.products removeObjectAtIndex:[indexPath row]];
+     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  }
  else if (editingStyle == UITableViewCellEditingStyleInsert) {
  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
  }
  }
- */
+ 
 
-/*
+
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
+     Product* movedObject = [self.company.products objectAtIndex:[fromIndexPath row]];
+     [self.company.products removeObjectAtIndex:[fromIndexPath row]];
+     [self.company.products insertObject:movedObject atIndex:[toIndexPath row]];
+     
  }
- */
+ 
 
-/*
+
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the item to be re-orderable.
  return YES;
  }
- */
+ 
 
 
  #pragma mark - Table view delegate
@@ -121,7 +140,8 @@
  // Navigation logic may go here, for example:
  // Create the next view controller.
      self.webViewController = [[ProductWebViewController alloc] init];
- 
+     self.webViewController.title = [self.company.products objectAtIndex:[indexPath row]].name;
+     self.webViewController.urlString = [self.company.products objectAtIndex:[indexPath row]].productURL;
  // Pass the selected object to the new view controller.
      
     

@@ -18,7 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSURL *url = [NSURL URLWithString:@"https://apple.com"];
+    _webView.navigationDelegate = self;
+    
+    NSURL *url = [NSURL URLWithString:_urlString];
     NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestURL];
     // Do any additional setup after loading the view.
@@ -27,6 +29,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
+    [_activityIndicator stopAnimating];
 }
 
 /*
@@ -41,6 +47,7 @@
 
 - (void)dealloc {
     [_webView release];
+    [_activityIndicator release];
     [super dealloc];
 }
 @end
