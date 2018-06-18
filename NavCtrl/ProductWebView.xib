@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductWebViewController">
             <connections>
+                <outlet property="activityIndicator" destination="aFE-iP-fbu" id="Hre-K3-4hO"/>
                 <outlet property="view" destination="iN0-l3-epB" id="i6f-Rk-jTm"/>
                 <outlet property="webView" destination="wCn-9Y-aIr" id="5sb-NF-YLg"/>
             </connections>
@@ -29,12 +30,18 @@
                         <wkPreferences key="preferences"/>
                     </wkWebViewConfiguration>
                 </wkWebView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-iP-fbu">
+                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
             </subviews>
             <constraints>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="76s-vr-rMu"/>
+                <constraint firstItem="aFE-iP-fbu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MJY-fu-EWW"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="U3f-hn-tQQ"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iHa-7d-Scr"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="pDu-rT-EC3"/>
+                <constraint firstItem="aFE-iP-fbu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qXI-B7-AWA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="130.5" y="53.5"/>

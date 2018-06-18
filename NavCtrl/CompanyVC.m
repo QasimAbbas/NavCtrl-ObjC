@@ -8,6 +8,7 @@
 
 #import "CompanyVC.h"
 #import "Company.h"
+#import "DataAccessObject.h"
 
 @interface CompanyVC ()
 
@@ -23,9 +24,9 @@
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
     self.navigationItem.rightBarButtonItem = editButton;
     
-    Company *company = [[Company alloc] initWithName:@"Apple mobile devices"];
+    self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"Motorola mobile devices", @"Nokia mobile devices", @"Huwawei mobile devices"];
+    
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
 }
@@ -55,6 +56,23 @@
     // Return the number of sections.
     return 1;
 }
+/*
+ if ([self.title isEqualToString:@"Apple mobile devices"]) {
+ self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
+ } else if([self.title isEqualToString:@"Samsung mobile devices"]){
+ self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
+ }else if([self.title isEqualToString:@"Motorola mobile devices"]){
+ self.products = @[@"Droid", @"Droid 2", @"Droid X"];
+ }else if([self.title isEqualToString:@"Nokia mobile devices"]){
+ self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
+ }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
+ self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
+ }
+*/
+
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -73,9 +91,10 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+    Company *company = [self.companyList objectAtIndex:[indexPath row]];
+    cell.textLabel.text = company.name;
     
-    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"img-companyLogo_%li", [indexPath row]]];
+    UIImage *img = [UIImage imageNamed: company.image];
     img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
     
     cell.imageView.image = img;
@@ -103,35 +122,41 @@
  }
  */
 
-/*
+
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
  {
  if (editingStyle == UITableViewCellEditingStyleDelete) {
  // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     [self.companyList removeObjectAtIndex:[indexPath row]];
+
+     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  }
  else if (editingStyle == UITableViewCellEditingStyleInsert) {
  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
  }
  }
- */
+ 
 
-/*
+
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
+     Company *movedObject = [self.companyList objectAtIndex:[fromIndexPath row]];
+     [self.companyList removeObjectAtIndex:[fromIndexPath row]];
+     [self.companyList insertObject:movedObject atIndex:[toIndexPath row]];
+     
  }
- */
+ 
 
-/*
+
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the item to be re-orderable.
  return YES;
  }
- */
+ 
 
 
 #pragma mark - Table view delegate
@@ -141,17 +166,9 @@
 {
     
     self.productViewController = [[ProductVC alloc]init];
-    if (indexPath.row == 0){
-        self.productViewController.title = @"Apple mobile devices";
-    } else if(indexPath.row == 1){
-        self.productViewController.title = @"Samsung mobile devices";
-    }else if(indexPath.row == 2){
-        self.productViewController.title = @"Motorola mobile devices";
-    }else if(indexPath.row == 3){
-        self.productViewController.title = @"Nokia mobile devices";
-    }else if(indexPath.row == 4){
-        self.productViewController.title = @"Huwawei mobile devices";
-    }
+    self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
+    self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
+    
     
     [self.navigationController
      pushViewController:self.productViewController

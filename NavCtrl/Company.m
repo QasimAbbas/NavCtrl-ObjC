@@ -10,12 +10,14 @@
 
 @implementation Company
 
-- (instancetype)initWithName: (NSString *)name
+
+- (instancetype)initWithName: (NSString *)name image:(NSString *)image
 {
     self = [super init];
     if (self) {
         _name = name;
         _products = [[NSMutableArray alloc] init];
+        _image = image;
     }
     return self;
     
@@ -26,5 +28,6 @@
     [_products release];
     [super dealloc];
 }
+
 
 @end

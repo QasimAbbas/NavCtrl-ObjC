@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@interface ProductWebViewController : UIViewController
+@interface ProductWebViewController : UIViewController <WKNavigationDelegate>
 @property (retain, nonatomic) IBOutlet WKWebView *webView;
-
+@property (nonatomic, retain)NSString* urlString;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 @end
