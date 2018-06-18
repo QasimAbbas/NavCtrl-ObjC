@@ -20,6 +20,7 @@
 		48A656D818163BF200746D36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48A656D618163BF200746D36 /* InfoPlist.strings */; };
 		48A656DA18163BF200746D36 /* NavCtrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656D918163BF200746D36 /* NavCtrlTests.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B9E0C20D860960026D411 /* DataAccessObject.m */; };
 		9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */; };
 		9697C8FA20D8376E00BAB5BA /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 9697C8F920D8376E00BAB5BA /* Company.m */; };
 		96D90D0820D8286A004779CE /* ProductWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D90D0720D8286A004779CE /* ProductWebView.xib */; };
@@ -60,6 +61,8 @@
 		48A656D718163BF200746D36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		48A656D918163BF200746D36 /* NavCtrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavCtrlTests.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		963B9E0B20D860960026D411 /* DataAccessObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
+		963B9E0C20D860960026D411 /* DataAccessObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
 		9659AEE420C1FF1E0073FCB5 /* ProductWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebViewController.h; sourceTree = "<group>"; };
 		9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebViewController.m; sourceTree = "<group>"; };
 		9697C8F820D8376E00BAB5BA /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
@@ -224,6 +227,8 @@
 				9697C8F920D8376E00BAB5BA /* Company.m */,
 				96D90D1020D8313A004779CE /* Product.h */,
 				96D90D1120D8313A004779CE /* Product.m */,
+				963B9E0B20D860960026D411 /* DataAccessObject.h */,
+				963B9E0C20D860960026D411 /* DataAccessObject.m */,
 			);
 			name = DataObjects;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */,

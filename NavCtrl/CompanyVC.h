@@ -17,5 +17,4 @@
 @property (nonatomic, retain) ProductVC *productViewController;
 -(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
--(NSMutableArray<Company *> * )companies;
 @end
