@@ -108,7 +108,6 @@
 		483796CB1BCBF7A00062D5AB /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				96D90D0F20D83120004779CE /* DataObjects */,
 				48A656C318163BF200746D36 /* NavControllerAppDelegate.h */,
 				48A656C418163BF200746D36 /* NavControllerAppDelegate.m */,
 			);
@@ -169,6 +168,7 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
+				96D90D0F20D83120004779CE /* DataObjects */,
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
@@ -278,7 +278,6 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = qcdDemo;
-
 				ORGANIZATIONNAME = "Aditya Narayan";
 				TargetAttributes = {
 					48A656B018163BF200746D36 = {
