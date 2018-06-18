@@ -7,7 +7,7 @@
 //
 
 #import "ProductVC.h"
-
+#import "ProductWebViewController.h"
 @interface ProductVC ()
 
 @end
@@ -35,7 +35,6 @@
     }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
         self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
     }
-    
     
     [self.tableView reloadData];
 }
@@ -113,7 +112,7 @@
  }
  */
 
-/*
+
  #pragma mark - Table view delegate
  
  // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -121,15 +120,17 @@
  {
  // Navigation logic may go here, for example:
  // Create the next view controller.
- <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     self.webViewController = [[ProductWebViewController alloc] init];
  
  // Pass the selected object to the new view controller.
+     
+    
  
  // Push the view controller.
- [self.navigationController pushViewController:detailViewController animated:YES];
+ [self.navigationController pushViewController:_webViewController animated:YES];
  }
  
- */
+ 
 
 
 - (void)dealloc {

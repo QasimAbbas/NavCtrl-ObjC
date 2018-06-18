@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @interface ProductWebViewController : UIViewController
+@property (retain, nonatomic) IBOutlet WKWebView *webView;
+
+
 
 @end

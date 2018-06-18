@@ -7,6 +7,7 @@
 //
 
 #import "CompanyVC.h"
+#import "Company.h"
 
 @interface CompanyVC ()
 
@@ -22,6 +23,7 @@
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
     self.navigationItem.rightBarButtonItem = editButton;
     
+    Company *company = [[Company alloc] initWithName:@"Apple mobile devices"];
     
     self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"Motorola mobile devices", @"Nokia mobile devices", @"Huwawei mobile devices"];
     self.title = @"Mobile device makers";

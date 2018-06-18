@@ -8,6 +8,7 @@
 
 #import "ProductWebViewController.h"
 
+
 @interface ProductWebViewController ()
 
 @end
@@ -16,6 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSURL *url = [NSURL URLWithString:@"https://apple.com"];
+    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:requestURL];
     // Do any additional setup after loading the view.
 }
 
@@ -34,4 +39,8 @@
 }
 */
 
+- (void)dealloc {
+    [_webView release];
+    [super dealloc];
+}
 @end

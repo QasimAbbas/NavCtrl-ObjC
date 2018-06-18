@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductWebViewController.h"
 
 @interface ProductVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSArray *products;
+@property(nonatomic, retain) ProductWebViewController * webViewController;
 
 @end
