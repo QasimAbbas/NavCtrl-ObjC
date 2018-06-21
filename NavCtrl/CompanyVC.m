@@ -16,26 +16,49 @@
 
 @implementation CompanyVC
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
+    
+    self.navigationItem.leftBarButtonItem = addButton;
     self.navigationItem.rightBarButtonItem = editButton;
     
     self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
+    
     
     
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
 }
 
+
+-(void)addItem{
+    
+//    self.insertCompanyViewController = [[InsertCompany alloc] initWithNibName:@"InsertCompany" bundle: nil];
+    self.insertCompanyViewController = [[InsertCompany alloc] init];
+    [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
+//    [self.navigationController presentViewController: self.insertCompanyViewController animated:true completion: nil];
+}
+
+
 - (void)toggleEditMode {
     
     if (self.tableView.editing) {
         [self.tableView setEditing:NO animated:YES];
         self.navigationItem.rightBarButtonItem.title = @"Edit";
+        
     } else {
         [self.tableView setEditing:YES animated:NO];
         self.navigationItem.rightBarButtonItem.title = @"Done";
@@ -92,12 +115,23 @@
     // Configure the cell...
     
     Company *company = [self.companyList objectAtIndex:[indexPath row]];
-    cell.textLabel.text = company.name;
     
+    UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
     UIImage *img = [UIImage imageNamed: company.image];
-    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    view.image = img;
+    view.contentMode = UIViewContentModeScaleAspectFit;
     
-    cell.imageView.image = img;
+    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
+    
+    NSLog(@"COMPANY NAME: %@", company.name);
+    cellLabel.text = company.name;
+    cellLabel.backgroundColor = UIColor.clearColor;
+    
+    [cell.contentView addSubview:view];
+    [cell.contentView addSubview:cellLabel];
+    
+    
+    
     return cell;
     
     
@@ -106,6 +140,8 @@
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     UIGraphicsBeginImageContext(newSize);
+    
+    
     [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -113,14 +149,13 @@
 }
 
 
-/*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
  return YES;
  }
- */
+ 
 
 
  // Override to support editing the table view.
@@ -133,8 +168,12 @@
      [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  }
  else if (editingStyle == UITableViewCellEditingStyleInsert) {
+     
+     NSLog(@"Insert Mode");
+     
  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
+     
+    }
  }
  
 
@@ -147,6 +186,8 @@
      [self.companyList insertObject:movedObject atIndex:[toIndexPath row]];
      
  }
+
+
  
 
 
@@ -166,6 +207,7 @@
 {
     
     self.productViewController = [[ProductVC alloc]init];
+    
     self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
     self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
     

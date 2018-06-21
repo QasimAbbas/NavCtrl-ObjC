@@ -23,9 +23,13 @@
 		963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B9E0C20D860960026D411 /* DataAccessObject.m */; };
 		9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */; };
 		9697C8FA20D8376E00BAB5BA /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 9697C8F920D8376E00BAB5BA /* Company.m */; };
+		9698A92A20DAF410008BD2C4 /* InsertCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 9698A92920DAF410008BD2C4 /* InsertCompany.m */; };
+		9698A92D20DAF443008BD2C4 /* InsertCompany.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9698A92C20DAF443008BD2C4 /* InsertCompany.xib */; };
 		96D90D0820D8286A004779CE /* ProductWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D90D0720D8286A004779CE /* ProductWebView.xib */; };
 		96D90D0A20D82C82004779CE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D90D0920D82C82004779CE /* WebKit.framework */; };
 		96D90D1220D8313A004779CE /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D90D1120D8313A004779CE /* Product.m */; };
+		96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0697C20DC5FF70049A901 /* InsertProductVC.m */; };
+		96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F0697D20DC5FF70049A901 /* InsertProductVC.xib */; };
 		9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */; };
 		9E62FF221E4A33DC002D55B8 /* CompanyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */; };
 		9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E62FF241E4A33F1002D55B8 /* ProductVC.m */; };
@@ -67,10 +71,16 @@
 		9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebViewController.m; sourceTree = "<group>"; };
 		9697C8F820D8376E00BAB5BA /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		9697C8F920D8376E00BAB5BA /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
+		9698A92820DAF410008BD2C4 /* InsertCompany.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertCompany.h; sourceTree = "<group>"; };
+		9698A92920DAF410008BD2C4 /* InsertCompany.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsertCompany.m; sourceTree = "<group>"; };
+		9698A92C20DAF443008BD2C4 /* InsertCompany.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertCompany.xib; sourceTree = "<group>"; };
 		96D90D0720D8286A004779CE /* ProductWebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductWebView.xib; sourceTree = "<group>"; };
 		96D90D0920D82C82004779CE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		96D90D1020D8313A004779CE /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		96D90D1120D8313A004779CE /* Product.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		96F0697B20DC5FF70049A901 /* InsertProductVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertProductVC.h; sourceTree = "<group>"; };
+		96F0697C20DC5FF70049A901 /* InsertProductVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsertProductVC.m; sourceTree = "<group>"; };
+		96F0697D20DC5FF70049A901 /* InsertProductVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertProductVC.xib; sourceTree = "<group>"; };
 		9E62FF1E1E4A33DC002D55B8 /* CompanyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyVC.h; sourceTree = "<group>"; };
 		9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyVC.m; sourceTree = "<group>"; };
 		9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyVC.xib; sourceTree = "<group>"; };
@@ -108,7 +118,6 @@
 		483796CB1BCBF7A00062D5AB /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				96D90D0F20D83120004779CE /* DataObjects */,
 				48A656C318163BF200746D36 /* NavControllerAppDelegate.h */,
 				48A656C418163BF200746D36 /* NavControllerAppDelegate.m */,
 			);
@@ -169,9 +178,11 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
+				9698A92B20DAF41B008BD2C4 /* InsertViewController */,
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
+				96D90D0F20D83120004779CE /* DataObjects */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				9659AEE720C1FF250073FCB5 /* ProductWebViewController */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
@@ -220,6 +231,15 @@
 			name = ProductWebViewController;
 			sourceTree = "<group>";
 		};
+		9698A92B20DAF41B008BD2C4 /* InsertViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96F0697A20DC5FD80049A901 /* InsertCompany */,
+				96F0697920DC5F340049A901 /* InsertProduct */,
+			);
+			name = InsertViewController;
+			sourceTree = "<group>";
+		};
 		96D90D0F20D83120004779CE /* DataObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +251,26 @@
 				963B9E0C20D860960026D411 /* DataAccessObject.m */,
 			);
 			name = DataObjects;
+			sourceTree = "<group>";
+		};
+		96F0697920DC5F340049A901 /* InsertProduct */ = {
+			isa = PBXGroup;
+			children = (
+				96F0697B20DC5FF70049A901 /* InsertProductVC.h */,
+				96F0697C20DC5FF70049A901 /* InsertProductVC.m */,
+				96F0697D20DC5FF70049A901 /* InsertProductVC.xib */,
+			);
+			name = InsertProduct;
+			sourceTree = "<group>";
+		};
+		96F0697A20DC5FD80049A901 /* InsertCompany */ = {
+			isa = PBXGroup;
+			children = (
+				9698A92820DAF410008BD2C4 /* InsertCompany.h */,
+				9698A92920DAF410008BD2C4 /* InsertCompany.m */,
+				9698A92C20DAF443008BD2C4 /* InsertCompany.xib */,
+			);
+			name = InsertCompany;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,10 +353,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E62FF291E4A3982002D55B8 /* Launch Screen.storyboard in Resources */,
+				9698A92D20DAF443008BD2C4 /* InsertCompany.xib in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				9E62FF221E4A33DC002D55B8 /* CompanyVC.xib in Resources */,
 				9E62FF271E4A33F1002D55B8 /* ProductVC.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
+				96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */,
 				96D90D0820D8286A004779CE /* ProductWebView.xib in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 			);
@@ -339,10 +381,12 @@
 			files = (
 				963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
+				9698A92A20DAF410008BD2C4 /* InsertCompany.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */,
 				96D90D1220D8313A004779CE /* Product.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
+				96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */,
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,
 				9697C8FA20D8376E00BAB5BA /* Company.m in Sources */,
 			);

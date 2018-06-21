@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProductVC.h"
 #import "Company.h"
+#import "InsertCompany.h"
 
 @interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
@@ -16,5 +17,7 @@
 @property (nonatomic, retain) NSMutableArray<Company *> *companyList;
 @property (nonatomic, retain) ProductVC *productViewController;
 -(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
+@property (nonatomic, retain) InsertCompany *insertCompanyViewController;
+
 
 @end

@@ -59,23 +59,51 @@
     }
     // Configure the cell...
     
-    cell.textLabel.text = [self.company.products objectAtIndex:[indexPath row]].name;
+    Product *product = [self.company.products objectAtIndex:[indexPath row]];
     
-    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@", [self.company.products objectAtIndex:[indexPath row]].name]];
-    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
+    UIImage *img = [UIImage imageNamed: product.imageURL];
+    view.image = img;
+    view.contentMode = UIViewContentModeScaleAspectFit;
     
-    cell.imageView.image = img;
+    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
+    cellLabel.text = product.name;
+    cellLabel.backgroundColor = UIColor.clearColor;
+
+    
+    [cell.contentView addSubview:view];
+    [cell.contentView addSubview:cellLabel];
+    
     
     return cell;
 }
 
+
 - (void)setEditing:(BOOL)editing
           animated:(BOOL)animated{
+    
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing];
     
+    if(editing){
+        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
+        
+       
+    }else{
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    }
+    
+    
+    
+    
 }
 
+-(void)addItem{
+    
+}
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     UIGraphicsBeginImageContext(newSize);
