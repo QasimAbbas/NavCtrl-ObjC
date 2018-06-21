@@ -318,7 +318,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = qcdDemo;
-				LastUpgradeCheck = 0940;
+
 				ORGANIZATIONNAME = "Aditya Narayan";
 				TargetAttributes = {
 					48A656B018163BF200746D36 = {
