@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InsertCompany : UIViewController
+@interface InsertCompany : UIViewController <UITextFieldDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyName;
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyImage;
 

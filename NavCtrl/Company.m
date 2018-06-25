@@ -13,6 +13,7 @@
 
 - (instancetype)initWithName: (NSString *)name image:(NSString *)image
 {
+    [self init];
     self = [super init];
     if (self) {
         _name = name;
@@ -21,6 +22,17 @@
     }
     return self;
     
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _name = @"";
+        _products = [[NSMutableArray alloc] init];
+        _image = @"iPhone";
+    }
+    return self;
 }
 
 - (void)dealloc

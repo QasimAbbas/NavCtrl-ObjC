@@ -20,8 +20,9 @@
     [super viewDidLoad];
     
     NSLog(@"View Loaded");
-    // Do any additional setup after loading the view.
-    
+    // Do any additional setup after loading the view
+    self.lblCompanyName.delegate = self;
+    self.lblCompanyImage.delegate = self;
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButton)];
     
@@ -31,8 +32,76 @@
     self.navigationItem.rightBarButtonItem = save;
     self.navigationItem.leftBarButtonItem = cancel;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)keyboardDidShow:(NSNotification *)notification{
+    NSLog(@"Keyboard did show");
+    
+    CGRect keyboardEndFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    UIViewAnimationOptions options = (curve << 16) | UIViewAnimationOptionBeginFromCurrentState;
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
+    CGRect frame = CGRectInset(self.view.frame, 0, -CGRectGetHeight(keyboardEndFrame));
+    
+    
+    if(self.lblCompanyName.isFirstResponder){
+        [UIView animateWithDuration:duration
+                              delay:0.0 options:options animations:^{
+                                  
+                                  self.lblCompanyName.frame = frame;
+                                  [self.lblCompanyImage setHidden:true];
+                              } completion:nil];
+        
+        NSLog(@"Moving Company Name");
+        
+    }else if(self.lblCompanyImage.isFirstResponder){
+        [UIView animateWithDuration:duration
+                              delay:0.0 options:options animations:^{
+                                  self.lblCompanyName.frame = frame;
+                                  [self.lblCompanyName setHidden:true];
+                                  
+                              } completion:nil];
+        
+        NSLog(@"Moving Company Image");
+    }
+    
+  
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification{
+    CGRect keyboardEndFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIViewAnimationCurve curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue];
+    UIViewAnimationOptions options = (curve << 16) | UIViewAnimationOptionBeginFromCurrentState;
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGRect frame = CGRectInset(_lblCompanyName.frame, 0, +CGRectGetHeight(keyboardEndFrame));
+    
+    if(self.lblCompanyName.isFirstResponder){
+        [UIView animateWithDuration:duration
+                              delay:0.0 options:options animations:^{
+                                  self.lblCompanyName.frame = frame;
+                                  [self.lblCompanyImage setHidden:false];
+                              } completion:nil];
+        
+    }else if(self.lblCompanyImage.isFirstResponder){
+        [UIView animateWithDuration:duration
+                              delay:0.0 options:options animations:^{
+                                  self.lblCompanyImage.frame = frame;
+                                  [self.lblCompanyName setHidden:false];
+                              } completion:nil];
+    }
+}
+
+
 
 -(void)save{
     
@@ -56,7 +125,6 @@
         newCompany.name = _lblCompanyName.text;
         newCompany.image = _lblCompanyImage.text;
         
-        NSLog(@"Company: %@ Image: %@", newCompany.name, newCompany.image);
         [DataAccessObject.sharedDataAccessObject.companyList addObject:newCompany];
         
         [self.navigationController popViewControllerAnimated:true];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProductWebViewController.h"
 #import "Company.h"
+#import "InsertProductVC.h"
 
 @interface ProductVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
@@ -16,5 +17,6 @@
 @property (nonatomic, retain) NSArray *products;
 @property (nonatomic, retain) ProductWebViewController * webViewController;
 @property (nonatomic, retain) Company *company;
+@property (nonatomic, retain) InsertProductVC *insertProductVC;
 
 @end

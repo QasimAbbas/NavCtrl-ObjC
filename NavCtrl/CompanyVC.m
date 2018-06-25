@@ -16,7 +16,7 @@
 
 @implementation CompanyVC
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [self.tableView reloadData];
 }
 
@@ -37,19 +37,18 @@
     
     self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
     
-    
-    
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
 }
 
 
+
 -(void)addItem{
     
-//    self.insertCompanyViewController = [[InsertCompany alloc] initWithNibName:@"InsertCompany" bundle: nil];
+
     self.insertCompanyViewController = [[InsertCompany alloc] init];
     [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
-//    [self.navigationController presentViewController: self.insertCompanyViewController animated:true completion: nil];
+
 }
 
 
@@ -122,8 +121,7 @@
     view.contentMode = UIViewContentModeScaleAspectFit;
     
     UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
-    
-    NSLog(@"COMPANY NAME: %@", company.name);
+
     cellLabel.text = company.name;
     cellLabel.backgroundColor = UIColor.clearColor;
     
@@ -232,6 +230,8 @@
 - (void)dealloc {
     [_tableView release];
     [_companyList release];
+    [_insertCompanyViewController release];
+    [_productViewController release];
     [super dealloc];
 }
 @end

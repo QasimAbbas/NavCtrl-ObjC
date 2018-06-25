@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Company.h"
 
-@interface InsertProductVC : UIViewController
+@interface InsertProductVC : UIViewController <UITextFieldDelegate>
+@property (retain, nonatomic) IBOutlet UITextField *txtProductName;
+@property (retain, nonatomic) IBOutlet UITextField *txtProductImage;
+@property (retain, nonatomic) IBOutlet UITextField *txtProductURL;
+
+@property (nonatomic, retain) Product *product;
+
+@property (retain, nonatomic) Company *company;
 
 @end
