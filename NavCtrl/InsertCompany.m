@@ -24,6 +24,12 @@
     self.lblCompanyName.delegate = self;
     self.lblCompanyImage.delegate = self;
     
+    if(self.company){
+        self.lblCompanyName.text = self.company.name;
+        self.lblCompanyImage.text = self.company.image;
+        
+    }
+    
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButton)];
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
@@ -125,7 +131,15 @@
         newCompany.name = _lblCompanyName.text;
         newCompany.image = _lblCompanyImage.text;
         
-        [DataAccessObject.sharedDataAccessObject.companyList addObject:newCompany];
+        if([DataAccessObject.sharedDataAccessObject.companyList containsObject:newCompany]){
+            
+            [DataAccessObject.sharedDataAccessObject.companyList replaceObjectAtIndex:[DataAccessObject.sharedDataAccessObject.companyList indexOfObject:newCompany] withObject:newCompany];
+            
+        }else{
+             [DataAccessObject.sharedDataAccessObject.companyList addObject:newCompany];
+        }
+        
+       
         
         [self.navigationController popViewControllerAnimated:true];
     }

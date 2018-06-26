@@ -106,13 +106,10 @@
         self.navigationItem.leftBarButtonItem = self.editButtonItem;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
         
-       
     }else{
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     }
-    
-    
     
     
 }
@@ -126,14 +123,6 @@
     
     [self.navigationController pushViewController:self.insertProductVC animated:true];
     
-}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 

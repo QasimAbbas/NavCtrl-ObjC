@@ -10,6 +10,7 @@
 #import "Company.h"
 #import "DataAccessObject.h"
 #import "StockFetcher.h"
+#import "CompanyCell.h"
 
 @interface CompanyVC ()
 
@@ -28,7 +29,8 @@
     [super viewDidLoad];
     self.fetcher = [[StockFetcher alloc]init];
     self.fetcher.delegate = self;
-
+    
+    [self.tableView setAllowsSelectionDuringEditing:true];
     
     [self.fetcher fetchStockPriceFromSymbol:[[DataAccessObject.sharedDataAccessObject.companyList valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
     
@@ -38,12 +40,12 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
+    UIBarButtonItem *editButton = self.editButtonItem;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
     
-    self.navigationItem.leftBarButtonItem = addButton;
-    self.navigationItem.rightBarButtonItem = editButton;
+    self.navigationItem.rightBarButtonItem = addButton;
+    self.navigationItem.leftBarButtonItem = editButton;
     
     self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
     
@@ -70,25 +72,17 @@
 
 -(void)addItem{
     
-
     self.insertCompanyViewController = [[InsertCompany alloc] init];
     [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
 
 }
 
-
-- (void)toggleEditMode {
-    
-    if (self.tableView.editing) {
-        [self.tableView setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem.title = @"Edit";
-        
-    } else {
-        [self.tableView setEditing:YES animated:NO];
-        self.navigationItem.rightBarButtonItem.title = @"Done";
-    }
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -115,13 +109,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CompanyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
-    }
-    
-    for (UIView *view in cell.contentView.subviews) {
-        [view removeFromSuperview];
+        cell = [[CompanyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
@@ -140,9 +130,14 @@
     cellLabel.text = company.name;
     cellLabel.backgroundColor = UIColor.clearColor;
     
-    [cell.contentView addSubview:view];
-    [cell.contentView addSubview:cellLabel];
-    [cell.contentView addSubview:detailCellLabel];
+    cell.textLabel.text = company.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
+    cell.imageView.image = img;
+    
+    //[cell.contentView addSubview:view];
+    //[cell.contentView addSubview:cellLabel];
+    //[cell.contentView addSubview:detailCellLabel];
+    
     
     
     
@@ -221,16 +216,26 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([self.tableView isEditing]){
+        self.insertCompanyViewController = [[InsertCompany alloc] init];
+        
+        self.insertCompanyViewController.company = [self.companyList objectAtIndex:[indexPath row]];
+        
+        [self.navigationController pushViewController:self.insertCompanyViewController animated:YES];
+        
+        
+    }else{
+        self.productViewController = [[ProductVC alloc]init];
+        self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
+        self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
+        
+        
+        [self.navigationController
+         pushViewController:self.productViewController
+         animated:YES];
+    }
     
-    self.productViewController = [[ProductVC alloc]init];
-    
-    self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
-    self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
-    
-    
-    [self.navigationController
-     pushViewController:self.productViewController
-     animated:YES];
+   
     
 }
 

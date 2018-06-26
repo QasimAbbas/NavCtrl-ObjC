@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Company.h"
 
 @interface InsertCompany : UIViewController <UITextFieldDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyName;
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyImage;
-
+@property (retain, nonatomic) Company *company;
 
 @end

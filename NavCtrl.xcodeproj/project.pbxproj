@@ -21,6 +21,8 @@
 		48A656DA18163BF200746D36 /* NavCtrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656D918163BF200746D36 /* NavCtrlTests.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
 		963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B9E0C20D860960026D411 /* DataAccessObject.m */; };
+		9642BC5320E28193005BCC09 /* CompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642BC5120E28193005BCC09 /* CompanyCell.m */; };
+		9642BC5420E28193005BCC09 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9642BC5220E28193005BCC09 /* CompanyCell.xib */; };
 		9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */; };
 		965F4E7220E19A6900CB1DE0 /* StockFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F4E7120E19A6900CB1DE0 /* StockFetcher.m */; };
 		9697C8FA20D8376E00BAB5BA /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 9697C8F920D8376E00BAB5BA /* Company.m */; };
@@ -68,6 +70,9 @@
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
 		963B9E0B20D860960026D411 /* DataAccessObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataAccessObject.h; sourceTree = "<group>"; };
 		963B9E0C20D860960026D411 /* DataAccessObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
+		9642BC5020E28193005BCC09 /* CompanyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCell.h; sourceTree = "<group>"; };
+		9642BC5120E28193005BCC09 /* CompanyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCell.m; sourceTree = "<group>"; };
+		9642BC5220E28193005BCC09 /* CompanyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
 		9659AEE420C1FF1E0073FCB5 /* ProductWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebViewController.h; sourceTree = "<group>"; };
 		9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebViewController.m; sourceTree = "<group>"; };
 		965F4E7020E19A6900CB1DE0 /* StockFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcher.h; sourceTree = "<group>"; };
@@ -133,6 +138,9 @@
 			children = (
 				9E62FF1E1E4A33DC002D55B8 /* CompanyVC.h */,
 				9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */,
+				9642BC5020E28193005BCC09 /* CompanyCell.h */,
+				9642BC5120E28193005BCC09 /* CompanyCell.m */,
+				9642BC5220E28193005BCC09 /* CompanyCell.xib */,
 				9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */,
 			);
 			name = ParentViewController;
@@ -373,6 +381,7 @@
 				9E62FF271E4A33F1002D55B8 /* ProductVC.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */,
+				9642BC5420E28193005BCC09 /* CompanyCell.xib in Resources */,
 				96D90D0820D8286A004779CE /* ProductWebView.xib in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 			);
@@ -404,6 +413,7 @@
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,
 				9697C8FA20D8376E00BAB5BA /* Company.m in Sources */,
 				965F4E7220E19A6900CB1DE0 /* StockFetcher.m in Sources */,
+				9642BC5320E28193005BCC09 /* CompanyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
