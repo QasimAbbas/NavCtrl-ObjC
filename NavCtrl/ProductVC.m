@@ -8,6 +8,8 @@
 
 #import "ProductVC.h"
 #import "ProductWebViewController.h"
+#import "InsertProductVC.h"
+
 @interface ProductVC ()
 
 @end
@@ -18,14 +20,19 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [self.tableView setAllowsSelectionDuringEditing:true];
+    
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [self.tableView reloadData];
+   
     [super viewWillAppear:animated];
     
-    [self.tableView reloadData];
+   
+    
 }
 
 
@@ -53,36 +60,69 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
     // Configure the cell...
     
-    cell.textLabel.text = [self.company.products objectAtIndex:[indexPath row]].name;
+    Product *product = [self.company.products objectAtIndex:[indexPath row]];
     
-    UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@", [self.company.products objectAtIndex:[indexPath row]].name]];
-    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
+    UIImage *img = [UIImage imageNamed: product.imageURL];
+    view.image = img;
+    view.contentMode = UIViewContentModeScaleAspectFit;
     
-    cell.imageView.image = img;
+    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
+    cellLabel.backgroundColor = UIColor.clearColor;
+    
+    [cellLabel setText:product.name];
+
+    view.tag = 0;
+    cellLabel.tag = 1;
+    [cell.contentView addSubview:view];
+    [cell.contentView addSubview:cellLabel];
     
     return cell;
 }
 
+
 - (void)setEditing:(BOOL)editing
           animated:(BOOL)animated{
+    
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing];
     
+    if(editing){
+        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
+        
+    }else{
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    }
+    
+    
 }
 
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
+-(void)addItem{
+    
+    self.insertProductVC = [[InsertProductVC alloc] init];
+    self.insertProductVC.company = self.company;
+    self.insertProductVC.title = self.company.name;
+    self.insertProductVC.product = nil;
+    
+    [self.navigationController pushViewController:self.insertProductVC animated:true];
+    
 }
 
 
@@ -139,15 +179,30 @@
  {
  // Navigation logic may go here, for example:
  // Create the next view controller.
-     self.webViewController = [[ProductWebViewController alloc] init];
-     self.webViewController.title = [self.company.products objectAtIndex:[indexPath row]].name;
-     self.webViewController.urlString = [self.company.products objectAtIndex:[indexPath row]].productURL;
+     if([tableView isEditing]){
+         
+         Product *editProduct = [self.company.products objectAtIndex:[indexPath row]];
+         self.insertProductVC = [[InsertProductVC alloc] init];
+         self.insertProductVC.product = editProduct;
+         self.insertProductVC.company = self.company;
+         
+         [self.navigationController pushViewController:self.insertProductVC animated:true];
+         
+         
+         
+     }else{
+         self.webViewController = [[ProductWebViewController alloc] init];
+         self.webViewController.title = [self.company.products objectAtIndex:[indexPath row]].name;
+         self.webViewController.urlString = [self.company.products objectAtIndex:[indexPath row]].productURL;
+         
+         // Push the view controller.
+         [self.navigationController pushViewController:_webViewController animated:YES];
+     }
  // Pass the selected object to the new view controller.
      
     
  
- // Push the view controller.
- [self.navigationController pushViewController:_webViewController animated:YES];
+
  }
  
  
@@ -155,6 +210,9 @@
 
 - (void)dealloc {
     [_tableView release];
+    [_webViewController release];
+    [_insertProductVC release];
+    [_company release];
     [super dealloc];
 }
 @end

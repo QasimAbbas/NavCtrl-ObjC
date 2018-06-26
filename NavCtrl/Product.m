@@ -24,4 +24,15 @@
     
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _name = @"";
+        _imageURL = @"iPhone";
+        _productURL = @"http://www.apple.com";
+    }
+    return self;
+}
+
 @end

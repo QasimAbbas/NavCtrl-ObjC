@@ -9,39 +9,80 @@
 #import "CompanyVC.h"
 #import "Company.h"
 #import "DataAccessObject.h"
+#import "StockFetcher.h"
+#import "CompanyCell.h"
 
 @interface CompanyVC ()
+
+@property(nonatomic, retain)StockFetcher *fetcher;
 
 @end
 
 @implementation CompanyVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fetcher = [[StockFetcher alloc]init];
+    self.fetcher.delegate = self;
+    
+    [self.tableView setAllowsSelectionDuringEditing:true];
+    
+    [self.fetcher fetchStockPriceFromSymbol:[[DataAccessObject.sharedDataAccessObject.companyList valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+    
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
-    self.navigationItem.rightBarButtonItem = editButton;
+    UIBarButtonItem *editButton = self.editButtonItem;
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
+    
+    self.navigationItem.rightBarButtonItem = addButton;
+    self.navigationItem.leftBarButtonItem = editButton;
     
     self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
-    
     
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)toggleEditMode {
+- (void)getStockPrice:(NSDictionary<NSString *, NSNumber *> *)price {
     
-    if (self.tableView.editing) {
-        [self.tableView setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem.title = @"Edit";
-    } else {
-        [self.tableView setEditing:YES animated:NO];
-        self.navigationItem.rightBarButtonItem.title = @"Done";
+    for(NSString *key in price.allKeys){
+        Company *company = DataAccessObject.sharedDataAccessObject.companyList[[DataAccessObject.sharedDataAccessObject.companyList indexOfObject:[[DataAccessObject.sharedDataAccessObject.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
+        
+        company.price = [price valueForKey:key];
     }
+}
+
+-(void)stockFetchDidFinishDownloading:(BOOL) status{
+    NSLog(@"%d", status);
+
+    if(status){
+        [self.tableView reloadData];
+    }
+}
+
+-(void)addItem{
+    
+    self.insertCompanyViewController = [[InsertCompany alloc] init];
+    [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
+
+}
+
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -56,22 +97,6 @@
     // Return the number of sections.
     return 1;
 }
-/*
- if ([self.title isEqualToString:@"Apple mobile devices"]) {
- self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
- } else if([self.title isEqualToString:@"Samsung mobile devices"]){
- self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
- }else if([self.title isEqualToString:@"Motorola mobile devices"]){
- self.products = @[@"Droid", @"Droid 2", @"Droid X"];
- }else if([self.title isEqualToString:@"Nokia mobile devices"]){
- self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
- }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
- self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
- }
-*/
-
-
-
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,20 +109,40 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CompanyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[CompanyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
     Company *company = [self.companyList objectAtIndex:[indexPath row]];
-    cell.textLabel.text = company.name;
     
+    UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
     UIImage *img = [UIImage imageNamed: company.image];
-    img = [self imageWithImage:img scaledToSize: CGSizeMake(cell.frame.size.height* 0.85, cell.frame.size.height * 0.85)];
+    view.image = img;
+    view.contentMode = UIViewContentModeScaleAspectFit;
     
+    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
+    UILabel *detailCellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 0.5 - 20, 0, cell.bounds.size.width - 10, cell.bounds.size.height)];
+    detailCellLabel.textAlignment = NSTextAlignmentRight;
+    detailCellLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
+    cellLabel.text = company.name;
+    cellLabel.backgroundColor = UIColor.clearColor;
+    
+    cell.textLabel.text = company.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
     cell.imageView.image = img;
+    
+    //[cell.contentView addSubview:view];
+    //[cell.contentView addSubview:cellLabel];
+    //[cell.contentView addSubview:detailCellLabel];
+    
+    
+    
+    
+    
+    
     return cell;
     
     
@@ -106,6 +151,8 @@
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     UIGraphicsBeginImageContext(newSize);
+    
+    
     [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -113,14 +160,13 @@
 }
 
 
-/*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
  return YES;
  }
- */
+ 
 
 
  // Override to support editing the table view.
@@ -133,8 +179,12 @@
      [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  }
  else if (editingStyle == UITableViewCellEditingStyleInsert) {
+     
+     NSLog(@"Insert Mode");
+     
  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
+     
+    }
  }
  
 
@@ -147,6 +197,8 @@
      [self.companyList insertObject:movedObject atIndex:[toIndexPath row]];
      
  }
+
+
  
 
 
@@ -164,15 +216,26 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([self.tableView isEditing]){
+        self.insertCompanyViewController = [[InsertCompany alloc] init];
+        
+        self.insertCompanyViewController.company = [self.companyList objectAtIndex:[indexPath row]];
+        
+        [self.navigationController pushViewController:self.insertCompanyViewController animated:YES];
+        
+        
+    }else{
+        self.productViewController = [[ProductVC alloc]init];
+        self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
+        self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
+        
+        
+        [self.navigationController
+         pushViewController:self.productViewController
+         animated:YES];
+    }
     
-    self.productViewController = [[ProductVC alloc]init];
-    self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
-    self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
-    
-    
-    [self.navigationController
-     pushViewController:self.productViewController
-     animated:YES];
+   
     
 }
 
@@ -190,6 +253,13 @@
 - (void)dealloc {
     [_tableView release];
     [_companyList release];
+    [_insertCompanyViewController release];
+    [_productViewController release];
     [super dealloc];
 }
+
+
+
+
+
 @end

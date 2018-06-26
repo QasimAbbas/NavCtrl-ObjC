@@ -24,6 +24,9 @@
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     
+    self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x7FB439);
+    
    // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     
