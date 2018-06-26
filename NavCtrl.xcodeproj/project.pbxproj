@@ -190,11 +190,8 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				96D90D0F20D83120004779CE /* DataObjects */,
-=======
 				9698A92B20DAF41B008BD2C4 /* InsertViewController */,
->>>>>>> assignment3-main-branch
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
