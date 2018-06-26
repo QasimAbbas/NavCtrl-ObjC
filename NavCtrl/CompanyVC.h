@@ -10,8 +10,9 @@
 #import "ProductVC.h"
 #import "Company.h"
 #import "InsertCompany.h"
+#import "StockFetcherDelegate.h"
 
-@interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource, StockFetcherDelegate>
 
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray<Company *> *companyList;

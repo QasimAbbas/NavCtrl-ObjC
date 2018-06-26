@@ -22,6 +22,7 @@
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
 		963B9E0D20D860960026D411 /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B9E0C20D860960026D411 /* DataAccessObject.m */; };
 		9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */; };
+		965F4E7220E19A6900CB1DE0 /* StockFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F4E7120E19A6900CB1DE0 /* StockFetcher.m */; };
 		9697C8FA20D8376E00BAB5BA /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 9697C8F920D8376E00BAB5BA /* Company.m */; };
 		9698A92A20DAF410008BD2C4 /* InsertCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 9698A92920DAF410008BD2C4 /* InsertCompany.m */; };
 		9698A92D20DAF443008BD2C4 /* InsertCompany.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9698A92C20DAF443008BD2C4 /* InsertCompany.xib */; };
@@ -69,6 +70,9 @@
 		963B9E0C20D860960026D411 /* DataAccessObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataAccessObject.m; sourceTree = "<group>"; };
 		9659AEE420C1FF1E0073FCB5 /* ProductWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebViewController.h; sourceTree = "<group>"; };
 		9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebViewController.m; sourceTree = "<group>"; };
+		965F4E7020E19A6900CB1DE0 /* StockFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcher.h; sourceTree = "<group>"; };
+		965F4E7120E19A6900CB1DE0 /* StockFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockFetcher.m; sourceTree = "<group>"; };
+		965F4E7320E19A8200CB1DE0 /* StockFetcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcherDelegate.h; sourceTree = "<group>"; };
 		9697C8F820D8376E00BAB5BA /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		9697C8F920D8376E00BAB5BA /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		9698A92820DAF410008BD2C4 /* InsertCompany.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertCompany.h; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
+				965F4E7420E19A8800CB1DE0 /* StockFetcher */,
 				96D90D0F20D83120004779CE /* DataObjects */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				9659AEE720C1FF250073FCB5 /* ProductWebViewController */,
@@ -229,6 +234,16 @@
 				96D90D0720D8286A004779CE /* ProductWebView.xib */,
 			);
 			name = ProductWebViewController;
+			sourceTree = "<group>";
+		};
+		965F4E7420E19A8800CB1DE0 /* StockFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				965F4E7020E19A6900CB1DE0 /* StockFetcher.h */,
+				965F4E7120E19A6900CB1DE0 /* StockFetcher.m */,
+				965F4E7320E19A8200CB1DE0 /* StockFetcherDelegate.h */,
+			);
+			name = StockFetcher;
 			sourceTree = "<group>";
 		};
 		9698A92B20DAF41B008BD2C4 /* InsertViewController */ = {
@@ -318,7 +333,6 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = qcdDemo;
-
 				ORGANIZATIONNAME = "Aditya Narayan";
 				TargetAttributes = {
 					48A656B018163BF200746D36 = {
@@ -389,6 +403,7 @@
 				96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */,
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,
 				9697C8FA20D8376E00BAB5BA /* Company.m in Sources */,
+				965F4E7220E19A6900CB1DE0 /* StockFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

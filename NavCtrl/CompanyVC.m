@@ -9,8 +9,11 @@
 #import "CompanyVC.h"
 #import "Company.h"
 #import "DataAccessObject.h"
+#import "StockFetcher.h"
 
 @interface CompanyVC ()
+
+@property(nonatomic, retain)StockFetcher *fetcher;
 
 @end
 
@@ -20,8 +23,15 @@
     [self.tableView reloadData];
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fetcher = [[StockFetcher alloc]init];
+    self.fetcher.delegate = self;
+
+    
+    [self.fetcher fetchStockPriceFromSymbol:[[DataAccessObject.sharedDataAccessObject.companyList valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+    
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -41,7 +51,22 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)getStockPrice:(NSDictionary<NSString *, NSNumber *> *)price {
+    
+    for(NSString *key in price.allKeys){
+        Company *company = DataAccessObject.sharedDataAccessObject.companyList[[DataAccessObject.sharedDataAccessObject.companyList indexOfObject:[[DataAccessObject.sharedDataAccessObject.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
+        
+        company.price = [price valueForKey:key];
+    }
+}
 
+-(void)stockFetchDidFinishDownloading:(BOOL) status{
+    NSLog(@"%d", status);
+
+    if(status){
+        [self.tableView reloadData];
+    }
+}
 
 -(void)addItem{
     
@@ -78,22 +103,6 @@
     // Return the number of sections.
     return 1;
 }
-/*
- if ([self.title isEqualToString:@"Apple mobile devices"]) {
- self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
- } else if([self.title isEqualToString:@"Samsung mobile devices"]){
- self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
- }else if([self.title isEqualToString:@"Motorola mobile devices"]){
- self.products = @[@"Droid", @"Droid 2", @"Droid X"];
- }else if([self.title isEqualToString:@"Nokia mobile devices"]){
- self.products = @[@"Nokia 6", @"Nokia Lumia 635", @"Nokia Lumia 2520"];
- }else if([self.title isEqualToString:@"Huwawei mobile devices"]){
- self.products = @[@"HUAWEI Mate 10 Pro", @"HUAWEI Mate SE", @"PORSCHE DESIGN HUAWEI Mate 10"];
- }
-*/
-
-
-
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -108,7 +117,11 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+    }
+    
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
     }
     
     // Configure the cell...
@@ -121,12 +134,17 @@
     view.contentMode = UIViewContentModeScaleAspectFit;
     
     UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
-
+    UILabel *detailCellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 0.5 - 20, 0, cell.bounds.size.width - 10, cell.bounds.size.height)];
+    detailCellLabel.textAlignment = NSTextAlignmentRight;
+    detailCellLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
     cellLabel.text = company.name;
     cellLabel.backgroundColor = UIColor.clearColor;
     
     [cell.contentView addSubview:view];
     [cell.contentView addSubview:cellLabel];
+    [cell.contentView addSubview:detailCellLabel];
+    
+    
     
     
     
@@ -234,4 +252,9 @@
     [_productViewController release];
     [super dealloc];
 }
+
+
+
+
+
 @end

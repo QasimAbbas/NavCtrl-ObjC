@@ -13,11 +13,11 @@
 
 @property (nonatomic, retain)NSString *name;
 @property (nonatomic, retain)NSString *image;
-
+@property (nonatomic, retain)NSString *tickerSymbol;
 @property (nonatomic, retain)NSMutableArray<Product *> *products;
+@property (nonatomic, retain)NSNumber *price;
 
-
-- (instancetype)initWithName: (NSString *)name image:(NSString *)image;
+- (instancetype)initWithName: (NSString *)name image:(NSString *)image symbol:(NSString *)symbol;
 
 
 @end
