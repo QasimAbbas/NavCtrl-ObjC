@@ -1,43 +1,22 @@
 //
-//  DataAccessObject.m
+//  Defaults.m
 //  NavCtrl
 //
-//  Created by Qasim Abbas on 6/18/18.
+//  Created by Qasim Abbas on 7/2/18.
 //  Copyright © 2018 Aditya Narayan. All rights reserved.
 //
 
-#import "DataAccessObject.h"
+#import "Defaults.h"
+#import "Company.h"
+#import "CompanyMO+CoreDataClass.h"
+#import "DAO.h"
 
+@implementation Defaults
 
-@implementation DataAccessObject
-
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _companyList = self.createDefaultCompanyList;
-    }
-    return self;
-}
-
-
-+(DataAccessObject *)sharedDataAccessObject{
-    static DataAccessObject *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[DataAccessObject alloc] init];
-    });
-    
-    return sharedInstance;
-}
-
-
-
--(NSMutableArray<Company *> * )createDefaultCompanyList{
++(void)createDefaultCompanyList{
     NSMutableArray<Company *> * companyList = [[NSMutableArray<Company *> alloc] init];
     Company *company = [[Company alloc] initWithName:@"Apple mobile devices" image:@"img-companyLogo_0" symbol:@"AAPL"];
-
+    
     
     [company.products addObject:[[Product alloc] initWithName:@"iPad" image:@"iPad" productURL:@"https://www.apple.com/ipad/"]];
     [company.products addObject:[[Product alloc] initWithName:@"iPod Touch" image:@"iPod Touch" productURL:@"https://www.apple.com/ipod-touch/"]];
@@ -78,9 +57,10 @@
     [companyList addObject:company3];
     [companyList addObject:company4];
     
-    return companyList;
+    for(Company* companyLocal in companyList){
+        [DAO.sharedDAO insertCompany:companyLocal];
+    }
     
 }
-
 
 @end

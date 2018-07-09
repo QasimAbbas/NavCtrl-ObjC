@@ -8,7 +8,7 @@
 
 #import "InsertCompany.h"
 #import "Company.h"
-#import "DataAccessObject.h"
+#import "DAO.h"
 
 @interface InsertCompany ()
 
@@ -131,12 +131,12 @@
         newCompany.name = _lblCompanyName.text;
         newCompany.image = _lblCompanyImage.text;
         
-        if([DataAccessObject.sharedDataAccessObject.companyList containsObject:newCompany]){
+        if([DAO.sharedDAO.companyList containsObject:newCompany]){
             
-            [DataAccessObject.sharedDataAccessObject.companyList replaceObjectAtIndex:[DataAccessObject.sharedDataAccessObject.companyList indexOfObject:newCompany] withObject:newCompany];
+            [DAO.sharedDAO.companyList replaceObjectAtIndex:[DAO.sharedDAO.companyList indexOfObject:newCompany] withObject:newCompany];
             
         }else{
-             [DataAccessObject.sharedDataAccessObject.companyList addObject:newCompany];
+             [DAO.sharedDAO.companyList addObject:newCompany];
         }
         
        

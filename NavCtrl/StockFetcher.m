@@ -27,15 +27,17 @@
         
         
         if(error){
-            if([self.delegate respondsToSelector:@selector(stockFetchDidFailWithError:)]){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate stockFetchDidFailWithError:error];
-                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
-                        [self.delegate stockFetchDidFinishDownloading:true];
-                    }
-                    
-                });
-            }
+            
+            NSLog(@"Stock error %@", [error localizedDescription]);
+//            if([self.delegate respondsToSelector:@selector(stockFetchDidFailWithError:)]){
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.delegate stockFetchDidFailWithError:error];
+//                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
+//                        [self.delegate stockFetchDidFinishDownloading:true];
+//                    }
+//
+//                });
+//            }
         }else{
             if([self.delegate respondsToSelector:@selector(getStockPrice:)]){
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -54,9 +56,9 @@
                     [self.delegate getStockPrice:dict];
                     
                     [symbolPrice release];
-                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
-                        [self.delegate stockFetchDidFinishDownloading:true];
-                    }
+//                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
+//                        [self.delegate stockFetchDidFinishDownloading:true];
+//                    }
                     
                 });
             }

@@ -8,6 +8,8 @@
 
 #import "NavControllerAppDelegate.h"
 #import "CompanyVC.h"
+#import "DAO.h"
+#import "Defaults.h"
 
 @implementation NavControllerAppDelegate
 
@@ -26,6 +28,18 @@
     
     self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x7FB439);
+    
+    //static dispatch_once_t once;
+    
+    NSLog(@"%i", [[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]);
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]){
+        
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"loadDefaultCompanies"];
+        [DAO.sharedDAO removeAllCompanies];
+        [Defaults createDefaultCompanyList];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
    // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     

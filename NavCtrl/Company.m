@@ -16,13 +16,12 @@
     [self init];
     self = [super init];
     if (self) {
-        _name = name;
+        [self setName:name];
         _products = [[NSMutableArray alloc] init];
-        _image = image;
-        _tickerSymbol = symbol;
+        [self setImage:image];
+        [self setTickerSymbol:symbol];
     }
     return self;
-    
 }
 
 - (instancetype)init
@@ -40,6 +39,9 @@
 
 - (void)dealloc
 {
+    [_name release];
+    [_image release];
+    [_tickerSymbol release];
     [_price release];
     [_products release];
     [super dealloc];

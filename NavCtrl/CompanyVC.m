@@ -8,7 +8,7 @@
 
 #import "CompanyVC.h"
 #import "Company.h"
-#import "DataAccessObject.h"
+#import "DAO.h"
 #import "StockFetcher.h"
 #import "CompanyCell.h"
 
@@ -21,18 +21,24 @@
 @implementation CompanyVC
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    self.companyList = [[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList];
+    NSLog(@"%@", [self.companyList valueForKey:@"name"]);
+    
     [self.tableView reloadData];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     self.fetcher = [[StockFetcher alloc]init];
     self.fetcher.delegate = self;
     
     [self.tableView setAllowsSelectionDuringEditing:true];
     
-    [self.fetcher fetchStockPriceFromSymbol:[[DataAccessObject.sharedDataAccessObject.companyList valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+    [self.fetcher fetchStockPriceFromSymbol:[[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
     
     
     self.tableView.delegate = self;
@@ -47,7 +53,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.leftBarButtonItem = editButton;
     
-    self.companyList = [DataAccessObject sharedDataAccessObject].companyList;
+    
     
     self.title = @"Mobile device makers";
     // Do any additional setup after loading the view from its nib.
@@ -56,18 +62,24 @@
 - (void)getStockPrice:(NSDictionary<NSString *, NSNumber *> *)price {
     
     for(NSString *key in price.allKeys){
-        Company *company = DataAccessObject.sharedDataAccessObject.companyList[[DataAccessObject.sharedDataAccessObject.companyList indexOfObject:[[DataAccessObject.sharedDataAccessObject.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
         
-        company.price = [price valueForKey:key];
+        Company *company = self.companyList[[self.companyList indexOfObject:[[self.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
+        
+        [company setPrice:[price valueForKey:key]];
+        [DAO.sharedDAO setCompanyPrice:company];
+        //NSLog(@"price for %@ = %@", key, company.price);
     }
+    
+    [self.companyList release];
+    self.companyList = [[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList];
+    [self.tableView reloadData];
 }
 
 -(void)stockFetchDidFinishDownloading:(BOOL) status{
-    NSLog(@"%d", status);
 
-    if(status){
-        [self.tableView reloadData];
-    }
+//    if(status){
+//        [self.tableView reloadData];
+//    }
 }
 
 -(void)addItem{
@@ -174,7 +186,9 @@
  {
  if (editingStyle == UITableViewCellEditingStyleDelete) {
  // Delete the row from the data source
+    [DAO.sharedDAO removeCompany:[self.companyList objectAtIndex:[indexPath row]]];
      [self.companyList removeObjectAtIndex:[indexPath row]];
+    
 
      [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  }
@@ -191,10 +205,12 @@
 
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
+{
      Company *movedObject = [self.companyList objectAtIndex:[fromIndexPath row]];
      [self.companyList removeObjectAtIndex:[fromIndexPath row]];
      [self.companyList insertObject:movedObject atIndex:[toIndexPath row]];
+     [DAO.sharedDAO moveCompany:movedObject toIndex:[toIndexPath row]];
+     
      
  }
 

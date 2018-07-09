@@ -8,7 +8,7 @@
 
 #import "InsertProductVC.h"
 #import "Product.h"
-#import "DataAccessObject.h"
+#import "DAO.h"
 
 @interface InsertProductVC ()
 
