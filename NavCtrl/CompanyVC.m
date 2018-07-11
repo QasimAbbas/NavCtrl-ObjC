@@ -23,7 +23,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     self.companyList = [[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList];
-    NSLog(@"%@", [self.companyList valueForKey:@"name"]);
     
     [self.tableView reloadData];
 }
@@ -38,7 +37,10 @@
     
     [self.tableView setAllowsSelectionDuringEditing:true];
     
-    [self.fetcher fetchStockPriceFromSymbol:[[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+    if(self.companyList.count){
+        [self.fetcher fetchStockPriceFromSymbol:[[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+    }
+    
     
     
     self.tableView.delegate = self;
@@ -115,7 +117,41 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.companyList count];
+    
+    if(self.companyList.count != 0){
+        
+        return [self.companyList count];
+        
+    }else{
+        
+    
+        UIView *backgroundView = [[UIView alloc] initWithFrame:tableView.frame];
+        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width * 0.5 - 50, tableView.frame.size.height * 0.5 - 50, 100, 100)];
+        
+        //[imageView setBackgroundColor:UIColor.blackColor];
+        [imageView setImage:[UIImage imageNamed:@"emptystate-homeView"]];
+        [backgroundView addSubview: imageView];
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        
+        
+        UITextView *noDataLabel         = [[UITextView alloc] initWithFrame:CGRectMake(imageView.frame.origin.x - 50,imageView.frame.origin.y + imageView.frame.size.height * 1.25, imageView.frame.size.width * 2, imageView.frame.size.height * 2)];
+        
+        noDataLabel.text             = @"You don't have any current companies added";
+        noDataLabel.textColor        = [UIColor grayColor];
+        noDataLabel.backgroundColor = UIColor.blackColor;
+        noDataLabel.textAlignment    = NSTextAlignmentCenter;
+        [noDataLabel setFont:[UIFont fontWithName:@"SF-Pro-Text-Regular" size:40.0f]];
+        
+        [backgroundView addSubview:noDataLabel];
+        
+        
+        tableView.backgroundView =  backgroundView;
+
+    }
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,8 +225,14 @@
     [DAO.sharedDAO removeCompany:[self.companyList objectAtIndex:[indexPath row]]];
      [self.companyList removeObjectAtIndex:[indexPath row]];
     
-
+    
+     
      [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     
+     if(self.companyList.count == 0){
+         NSLog(@"LAST ONE");
+         [self.tableView reloadData];
+     }
  }
  else if (editingStyle == UITableViewCellEditingStyleInsert) {
      
@@ -241,10 +283,12 @@
         
         
     }else{
+        
         self.productViewController = [[ProductVC alloc]init];
         self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
         self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
         
+       // NSLog(@"Sending Company: %@, with products %@", self.productViewController.title, [self.productViewController.company.products valueForKey:@"name"]);
         
         [self.navigationController
          pushViewController:self.productViewController

@@ -28,20 +28,18 @@
     
     self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x7FB439);
-    
+
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor};
     //static dispatch_once_t once;
     
-    NSLog(@"%i", [[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]);
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]){
         
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"loadDefaultCompanies"];
         [DAO.sharedDAO removeAllCompanies];
-        [Defaults createDefaultCompanyList];
+        //[Defaults createDefaultCompanyList];
         
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
-   // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     
     return YES;

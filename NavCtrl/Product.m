@@ -15,9 +15,9 @@
 {
     self = [self init];
     if(self){
-        _name = name;
-        _imageURL = imageURL;
-        _productURL = productURL;
+        [self setName:name];
+        [self setImageURL:imageURL];
+        [self setProductURL:productURL];
     }
     
     return self;

@@ -130,13 +130,15 @@
         Company *newCompany = [[Company alloc] init];
         newCompany.name = _lblCompanyName.text;
         newCompany.image = _lblCompanyImage.text;
-        
-        if([DAO.sharedDAO.companyList containsObject:newCompany]){
+        if(self.company){
+            CompanyMO *companyMO = [DAO.sharedDAO getCompanyFromCoreData:self.company];
+            [companyMO setName:newCompany.name];
+            [companyMO setImage:newCompany.image];
             
-            [DAO.sharedDAO.companyList replaceObjectAtIndex:[DAO.sharedDAO.companyList indexOfObject:newCompany] withObject:newCompany];
-            
+            [DAO.sharedDAO saveContext];
         }else{
-             [DAO.sharedDAO.companyList addObject:newCompany];
+            [DAO.sharedDAO.companyList addObject:newCompany];
+            [DAO.sharedDAO insertCompany:newCompany];
         }
         
        

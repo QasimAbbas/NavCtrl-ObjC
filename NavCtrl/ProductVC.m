@@ -9,6 +9,7 @@
 #import "ProductVC.h"
 #import "ProductWebViewController.h"
 #import "InsertProductVC.h"
+#import "DAO.h"
 
 @interface ProductVC ()
 
@@ -27,12 +28,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+
+    
+        self.products = [[NSMutableArray alloc] initWithArray:[DAO.sharedDAO fetchProductListFromCompany:self.company]];
+    
     [self.tableView reloadData];
-   
     [super viewWillAppear:animated];
-    
-   
-    
 }
 
 
@@ -54,7 +55,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.company.products count];
+    return [self.products count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -74,7 +75,8 @@
     }
     // Configure the cell...
     
-    Product *product = [self.company.products objectAtIndex:[indexPath row]];
+    Product *product = [self.products objectAtIndex:[indexPath row]];
+    NSLog(@"PRODUCT NAME: %@", product.name);
     
     UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
     UIImage *img = [UIImage imageNamed: product.imageURL];
@@ -141,8 +143,9 @@
  {
      if (editingStyle == UITableViewCellEditingStyleDelete) {
          // Delete the row from the data source
-     
-         [self.company.products removeObjectAtIndex:[indexPath row]];
+         [DAO.sharedDAO removeProduct:[self.company.products objectAtIndex:[indexPath row]] inCompany:self.company];
+         [self.products removeObjectAtIndex:[indexPath row]];
+         
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
      }else if (editingStyle == UITableViewCellEditingStyleInsert) {
          // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -200,9 +203,6 @@
      }
  // Pass the selected object to the new view controller.
      
-    
- 
-
  }
  
  

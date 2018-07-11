@@ -14,7 +14,7 @@
 @interface ProductVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) NSArray *products;
+@property (nonatomic, retain) NSMutableArray *products;
 @property (nonatomic, retain) ProductWebViewController * webViewController;
 @property (nonatomic, retain) Company *company;
 @property (nonatomic, retain) InsertProductVC *insertProductVC;

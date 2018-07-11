@@ -75,8 +75,11 @@
     [companyMO setTickerSymbol:company.tickerSymbol];
     [companyMO setIndex:count];
     for(Product *product in company.products){
+        
         [self insertProduct:product inCompany:company];
     }
+    
+    [self saveContext];
 }
 
 -(void)removeCompany:(Company *)company{
@@ -140,6 +143,16 @@
         Company *company = [[Company alloc] initWithName:companyMO.name image:companyMO.image symbol:companyMO.tickerSymbol];
         [company setPrice:[NSNumber numberWithFloat:companyMO.price]];
         
+        NSArray *sortCompanyProducts = [companyMO.products allObjects];
+        sortCompanyProducts = [sortCompanyProducts sortedArrayUsingDescriptors:@[sort]];
+        
+        for(ProductMO *productMO in sortCompanyProducts){
+            Product *product = [[Product alloc] initWithName:productMO.name image:productMO.image productURL:productMO.url];
+            [company.products addObject:product];
+        }
+        
+        
+        
         [companyArray addObject:company];
     }
  
@@ -165,12 +178,18 @@
     [productMO setUrl:product.productURL];
     [productMO setIndex:count];
     
+    //NSLog(@"%@, %i",productMO.name, productMO.index);
+    
     [companyMO setProducts:[companyMO.products setByAddingObject:productMO]];
+    
+    [self saveContext];
 }
 
 -(void)removeProduct:(Product *) product inCompany:(Company *)company{
     ProductMO *productToRemove = [self getProduct:product fromCompany:company];
     [self.managedObjectContext deleteObject:productToRemove];
+    
+    [self saveContext];
     
 }
 
@@ -183,14 +202,24 @@
 }
 
 -(NSArray *)fetchProductListFromCompany:(Company *)company{
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Company"];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"SELF.name == %@", company.name]];
-    NSError *error = nil;
-    CompanyMO *companyMO = [self.managedObjectContext executeFetchRequest:fetch error:&error].firstObject;
+
+    CompanyMO *companyMO = [self getCompanyFromCoreData:company];
+//    NSLog(@"Entering Fetch Call");
     
-    NSArray *productsArray = [companyMO.products allObjects];
+    NSArray *productsArrayMO = [companyMO.products allObjects];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:true];
-    productsArray = [productsArray sortedArrayUsingDescriptors:@[sort]];
+    productsArrayMO = [productsArrayMO sortedArrayUsingDescriptors:@[sort]];
+    
+    NSMutableArray<Product*> *productsArray = [[NSMutableArray<Product*> alloc] init];
+    
+    NSArray *sortCompanyProducts = [companyMO.products allObjects];
+    sortCompanyProducts = [sortCompanyProducts sortedArrayUsingDescriptors:@[sort]];
+    for(ProductMO *productMO in sortCompanyProducts){
+        Product *product = [[Product alloc] initWithName:productMO.name image:productMO.image productURL:productMO.url];
+        
+        [productsArray addObject:product];
+    }
+    
     return productsArray;
 }
 

@@ -35,6 +35,9 @@
 		96DFE48C20EAFB260098BB0A /* NavCtrl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DFE48A20EAFB260098BB0A /* NavCtrl.xcdatamodeld */; };
 		96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F0697C20DC5FF70049A901 /* InsertProductVC.m */; };
 		96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F0697D20DC5FF70049A901 /* InsertProductVC.xib */; };
+		96FBB44A20F5679900FD91F7 /* NoCompanies.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBB44820F5679900FD91F7 /* NoCompanies.m */; };
+		96FBB44B20F5679900FD91F7 /* NoCompanies.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FBB44920F5679900FD91F7 /* NoCompanies.xib */; };
+		96FBB44D20F56D1300FD91F7 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96FBB44C20F56CF400FD91F7 /* SF-Pro-Text-Regular.otf */; };
 		9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */; };
 		9E62FF221E4A33DC002D55B8 /* CompanyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */; };
 		9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E62FF241E4A33F1002D55B8 /* ProductVC.m */; };
@@ -95,6 +98,10 @@
 		96F0697B20DC5FF70049A901 /* InsertProductVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsertProductVC.h; sourceTree = "<group>"; };
 		96F0697C20DC5FF70049A901 /* InsertProductVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsertProductVC.m; sourceTree = "<group>"; };
 		96F0697D20DC5FF70049A901 /* InsertProductVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertProductVC.xib; sourceTree = "<group>"; };
+		96FBB44720F5679900FD91F7 /* NoCompanies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoCompanies.h; sourceTree = "<group>"; };
+		96FBB44820F5679900FD91F7 /* NoCompanies.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoCompanies.m; sourceTree = "<group>"; };
+		96FBB44920F5679900FD91F7 /* NoCompanies.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCompanies.xib; sourceTree = "<group>"; };
+		96FBB44C20F56CF400FD91F7 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		9E62FF1E1E4A33DC002D55B8 /* CompanyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyVC.h; sourceTree = "<group>"; };
 		9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyVC.m; sourceTree = "<group>"; };
 		9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyVC.xib; sourceTree = "<group>"; };
@@ -145,6 +152,9 @@
 				9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */,
 				9642BC5020E28193005BCC09 /* CompanyCell.h */,
 				9642BC5120E28193005BCC09 /* CompanyCell.m */,
+				96FBB44720F5679900FD91F7 /* NoCompanies.h */,
+				96FBB44820F5679900FD91F7 /* NoCompanies.m */,
+				96FBB44920F5679900FD91F7 /* NoCompanies.xib */,
 				9642BC5220E28193005BCC09 /* CompanyCell.xib */,
 				9E62FF201E4A33DC002D55B8 /* CompanyVC.xib */,
 			);
@@ -212,6 +222,7 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				96FBB44C20F56CF400FD91F7 /* SF-Pro-Text-Regular.otf */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
@@ -388,7 +399,9 @@
 				9E62FF221E4A33DC002D55B8 /* CompanyVC.xib in Resources */,
 				9E62FF271E4A33F1002D55B8 /* ProductVC.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
+				96FBB44D20F56D1300FD91F7 /* SF-Pro-Text-Regular.otf in Resources */,
 				96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */,
+				96FBB44B20F5679900FD91F7 /* NoCompanies.xib in Resources */,
 				9642BC5420E28193005BCC09 /* CompanyCell.xib in Resources */,
 				96D90D0820D8286A004779CE /* ProductWebView.xib in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
@@ -418,6 +431,7 @@
 				9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */,
 				96D90D1220D8313A004779CE /* Product.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
+				96FBB44A20F5679900FD91F7 /* NoCompanies.m in Sources */,
 				96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */,
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,
 				9697C8FA20D8376E00BAB5BA /* Company.m in Sources */,

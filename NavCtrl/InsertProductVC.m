@@ -9,6 +9,7 @@
 #import "InsertProductVC.h"
 #import "Product.h"
 #import "DAO.h"
+#import "ProductMO+CoreDataClass.h"
 
 @interface InsertProductVC ()
 
@@ -150,14 +151,22 @@
         product.imageURL = _txtProductImage.text;
         product.productURL = _txtProductURL.text;
         
-        if([self.company.products containsObject:self.product]){
+        if(self.product){
             
-            [self.company.products replaceObjectAtIndex:[self.company.products indexOfObject:self.product] withObject:product];
+            ProductMO *productMO = [DAO.sharedDAO getProduct:self.product fromCompany:self.company];
+            [productMO setName:product.name];
+            [productMO setImage: product.imageURL];
+            [productMO setUrl:product.productURL];
+            
+            [DAO.sharedDAO saveContext];
+            
             
         }else{
-            [self.company.products addObject:product];
+            
+            [DAO.sharedDAO insertProduct:product inCompany:self.company];
         }
         
+    
         [self.navigationController popViewControllerAnimated:true];
         
     }
