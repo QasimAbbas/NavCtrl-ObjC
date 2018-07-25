@@ -19,6 +19,8 @@
     self = [super init];
     if (self) {
       
+        self.companyImages = [[[NSMutableDictionary<NSString *, NSData *> alloc] init] autorelease];
+        self.productImages = [[[NSMutableDictionary<NSString *, NSData *> alloc] init] autorelease];
         [self loadPersistanceContainer];
        
     }
@@ -47,6 +49,7 @@
         }
     }];
     
+    self.persistentContainer.viewContext.undoManager = [[NSUndoManager alloc] init];
     self.managedObjectContext = self.persistentContainer.viewContext;
 }
 
@@ -91,7 +94,7 @@
 
 -(void)removeAllCompanies{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Company"];
-    NSBatchDeleteRequest * deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+    NSBatchDeleteRequest * deleteRequest = [[[NSBatchDeleteRequest alloc] autorelease] initWithFetchRequest:fetchRequest];
     
     NSError *error = nil;
     [self.managedObjectContext executeRequest:deleteRequest error:&error];
@@ -125,9 +128,11 @@
 
 -(CompanyMO *)getCompanyFromCoreData:(Company *)company{
     NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Company"];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"SELF.name == %@", company.name]];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"name == %@", company.name]];
     NSError *error = nil;
-    return [self.managedObjectContext executeFetchRequest:fetch error:&error].firstObject;
+    
+    return (CompanyMO *)[self.managedObjectContext executeFetchRequest:fetch error:&error].firstObject;
+    
 }
 
 
@@ -138,7 +143,7 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:true];
     companies = [companies sortedArrayUsingDescriptors:@[sort]];
     
-    NSMutableArray<Company*> *companyArray = [[NSMutableArray<Company*> alloc] init];
+    NSMutableArray<Company*> *companyArray = [[[NSMutableArray<Company*> alloc] init] autorelease];
     for(CompanyMO *companyMO in companies){
         Company *company = [[Company alloc] initWithName:companyMO.name image:companyMO.image symbol:companyMO.tickerSymbol];
         [company setPrice:[NSNumber numberWithFloat:companyMO.price]];
@@ -173,12 +178,13 @@
     }
     
     ProductMO *productMO =[NSEntityDescription insertNewObjectForEntityForName:@"Product" inManagedObjectContext:[self managedObjectContext]];
+    
     [productMO setName:product.name];
     [productMO setImage:product.imageURL];
     [productMO setUrl:product.productURL];
     [productMO setIndex:count];
     
-    //NSLog(@"%@, %i",productMO.name, productMO.index);
+    NSLog(@"Inserting %@, %i",productMO.name, productMO.index);
     
     [companyMO setProducts:[companyMO.products setByAddingObject:productMO]];
     
@@ -212,9 +218,9 @@
     
     NSMutableArray<Product*> *productsArray = [[NSMutableArray<Product*> alloc] init];
     
-    NSArray *sortCompanyProducts = [companyMO.products allObjects];
-    sortCompanyProducts = [sortCompanyProducts sortedArrayUsingDescriptors:@[sort]];
-    for(ProductMO *productMO in sortCompanyProducts){
+//    NSArray *sortCompanyProducts = [companyMO.products allObjects];
+//    sortCompanyProducts = [sortCompanyProducts sortedArrayUsingDescriptors:@[sort]];
+    for(ProductMO *productMO in productsArrayMO){
         Product *product = [[Product alloc] initWithName:productMO.name image:productMO.image productURL:productMO.url];
         
         [productsArray addObject:product];
@@ -223,6 +229,10 @@
     return productsArray;
 }
 
+-(void)dealloc{
+    [_companyList release];
+    [super dealloc];
+}
 
 
 @end

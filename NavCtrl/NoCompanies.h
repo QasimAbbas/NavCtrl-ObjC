@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NoCompanies : UIViewController
+- (IBAction)addCompany:(id)sender;
 
 @end

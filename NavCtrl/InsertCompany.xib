@@ -6,15 +6,21 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertCompany">
             <connections>
+                <outlet property="btnDelete" destination="1fY-uQ-OKL" id="GUe-BU-QIs"/>
                 <outlet property="lblCompanyImage" destination="2a4-Yd-icq" id="RoJ-Sq-lRs"/>
                 <outlet property="lblCompanyName" destination="PSm-CX-Fok" id="N15-TV-4jR"/>
+                <outlet property="lblStockSymbol" destination="q88-gV-8dM" id="QHg-s6-rTs"/>
                 <outlet property="view" destination="iN0-l3-epB" id="LwP-Br-KqF"/>
             </connections>
         </placeholder>
@@ -23,31 +29,51 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="iPhone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2a4-Yd-icq" userLabel="Company Name">
-                    <rect key="frame" x="62.5" y="318.5" width="250.5" height="30"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Image URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2a4-Yd-icq" userLabel="Stock">
+                    <rect key="frame" x="88.5" y="373" width="200" height="22"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PSm-CX-Fok" userLabel="Company">
+                    <rect key="frame" x="88" y="272" width="200" height="22"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stock Symbol" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q88-gV-8dM" userLabel="Image">
+                    <rect key="frame" x="88" y="322" width="200" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="2a4-Yd-icq" secondAttribute="height" multiplier="50:6" id="nYh-Jf-zei"/>
+                        <constraint firstAttribute="width" constant="200" id="gFI-YN-cPL"/>
                     </constraints>
                     <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Company Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PSm-CX-Fok" userLabel="Company Name">
-                    <rect key="frame" x="62.5" y="253" width="250.5" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fY-uQ-OKL">
+                    <rect key="frame" x="164.5" y="453" width="45" height="30"/>
+                    <state key="normal" title="Delete">
+                        <color key="titleColor" red="1" green="0.13182058469999999" blue="0.00033646567799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <connections>
+                        <action selector="btnDeleting:" destination="-1" eventType="touchUpInside" id="JNk-1u-V4s"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="height" secondItem="PSm-CX-Fok" secondAttribute="height" id="8wQ-pz-SrG"/>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="top" secondItem="PSm-CX-Fok" secondAttribute="bottom" constant="35.5" id="Big-wB-EdB"/>
-                <constraint firstItem="PSm-CX-Fok" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="O5G-ws-z8o"/>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="30:80" id="Zb5-b0-H5R"/>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dbU-b6-2iR"/>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="kJx-03-kxf"/>
-                <constraint firstItem="2a4-Yd-icq" firstAttribute="width" secondItem="PSm-CX-Fok" secondAttribute="width" id="voQ-Zm-K1Z"/>
+                <constraint firstItem="2a4-Yd-icq" firstAttribute="centerX" secondItem="q88-gV-8dM" secondAttribute="centerX" id="0FQ-0T-6kq"/>
+                <constraint firstItem="2a4-Yd-icq" firstAttribute="height" secondItem="q88-gV-8dM" secondAttribute="height" id="BLr-jI-RWQ"/>
+                <constraint firstItem="2a4-Yd-icq" firstAttribute="width" secondItem="q88-gV-8dM" secondAttribute="width" id="FIF-Dd-ew4"/>
+                <constraint firstItem="1fY-uQ-OKL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="GNR-ER-Lyf"/>
+                <constraint firstItem="1fY-uQ-OKL" firstAttribute="top" secondItem="2a4-Yd-icq" secondAttribute="bottom" constant="58" id="H6w-CJ-Dfv"/>
+                <constraint firstItem="PSm-CX-Fok" firstAttribute="centerX" secondItem="q88-gV-8dM" secondAttribute="centerX" id="NO9-ee-hhx"/>
+                <constraint firstItem="q88-gV-8dM" firstAttribute="top" secondItem="PSm-CX-Fok" secondAttribute="bottom" constant="28" id="PHZ-Tl-jVb"/>
+                <constraint firstItem="q88-gV-8dM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ury-bN-00o"/>
+                <constraint firstItem="PSm-CX-Fok" firstAttribute="width" secondItem="q88-gV-8dM" secondAttribute="width" id="WDV-4Z-UxA"/>
+                <constraint firstItem="2a4-Yd-icq" firstAttribute="top" secondItem="q88-gV-8dM" secondAttribute="bottom" constant="29" id="bZT-jV-dXH"/>
+                <constraint firstItem="q88-gV-8dM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ggK-D6-Ilf"/>
+                <constraint firstItem="PSm-CX-Fok" firstAttribute="height" secondItem="q88-gV-8dM" secondAttribute="height" id="jjh-sD-U3w"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="24.5" y="51.5"/>

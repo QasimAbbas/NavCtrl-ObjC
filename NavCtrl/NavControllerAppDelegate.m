@@ -11,35 +11,36 @@
 #import "DAO.h"
 #import "Defaults.h"
 
+
 @implementation NavControllerAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     // Override point for customization after application launch.
-    CompanyVC *rootController = [[CompanyVC alloc]init];
-    self.navigationController = [[UINavigationController alloc]
-                            initWithRootViewController:rootController];
+    CompanyVC *rootController = [[[CompanyVC alloc]init] autorelease];
+    self.navigationController = [[[UINavigationController alloc]
+                            initWithRootViewController:rootController] autorelease];
     
-    self.window = [[UIWindow alloc]
-                   initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[[UIWindow alloc]
+                    initWithFrame:[[UIScreen mainScreen] bounds]] autorelease] ;
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     
     self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x7FB439);
-
+    
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.whiteColor};
     //static dispatch_once_t once;
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]){
-        
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"loadDefaultCompanies"];
-        [DAO.sharedDAO removeAllCompanies];
-        //[Defaults createDefaultCompanyList];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"loadDefaultCompanies"]){
+//        
+//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"loadDefaultCompanies"];
+//        [DAO.sharedDAO removeAllCompanies];
+//        //[Defaults createDefaultCompanyList];
+//        
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
     
     
     return YES;
@@ -79,6 +80,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)dealloc{
+    [_window release];
+    [_navigationController release];
+
+    [super dealloc];
 }
 
 @end

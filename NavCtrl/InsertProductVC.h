@@ -13,8 +13,10 @@
 @property (retain, nonatomic) IBOutlet UITextField *txtProductName;
 @property (retain, nonatomic) IBOutlet UITextField *txtProductImage;
 @property (retain, nonatomic) IBOutlet UITextField *txtProductURL;
-
+@property (retain, nonatomic) NSNumber *edit;
 @property (nonatomic, retain) Product *product;
+@property (retain, nonatomic) IBOutlet UIButton *btnDelete;
+- (IBAction)btnDeleting:(id)sender;
 
 @property (retain, nonatomic) Company *company;
 

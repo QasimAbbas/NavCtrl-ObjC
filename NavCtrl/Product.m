@@ -28,11 +28,17 @@
 {
     self = [super init];
     if (self) {
-        _name = @"";
-        _imageURL = @"iPhone";
-        _productURL = @"http://www.apple.com";
+        self.name = @"";
+        self.imageURL = @"";
+        self.productURL = @"";
     }
     return self;
 }
 
+-(void)dealloc{
+    [_name release];
+    [_imageURL release];
+    [_productURL release];
+    [super dealloc];
+}
 @end

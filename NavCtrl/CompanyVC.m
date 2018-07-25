@@ -11,37 +11,59 @@
 #import "DAO.h"
 #import "StockFetcher.h"
 #import "CompanyCell.h"
+#import "NoCompanies.h"
+#import "ImageFetcher.h"
 
-@interface CompanyVC ()
+
+@interface CompanyVC (){
+    UIView *backgroundView;
+    NoCompanies *emptyView;
+}
 
 @property(nonatomic, retain)StockFetcher *fetcher;
+@property(nonatomic, retain)ImageFetcher *imgFetcher;
 
 @end
 
 @implementation CompanyVC
 
+#pragma mark -  LoadVC
+
 - (void)viewWillAppear:(BOOL)animated{
     
-    self.companyList = [[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList];
+    [super viewWillAppear:animated];
+    
+    if(DAO.sharedDAO.fetchCompanyList.count){
+        [self.fetcher fetchStockPriceFromSymbol:[[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
+        
+        [self.imgFetcher fetchImageFromImageURL:[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"image"]];
+        
+        }
+    [self loadCompanies];
+    
+ }
+
+
+-(void) loadCompanies {
+    //  NSLog(@"%i", [DAO.sharedDAO.managedObjectContext undoManager].canRedo);
+    
+    self.companyList = [[[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList] autorelease];
     
     [self.tableView reloadData];
-}
 
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    self.fetcher = [[StockFetcher alloc]init];
+    emptyView = [[NoCompanies alloc] init];
+    self.fetcher = [[[StockFetcher alloc]init] autorelease];
     self.fetcher.delegate = self;
     
+    self.imgFetcher = [[[ImageFetcher alloc] init] autorelease];
+    self.imgFetcher.delegate = self;
+    
     [self.tableView setAllowsSelectionDuringEditing:true];
-    
-    if(self.companyList.count){
-        [self.fetcher fetchStockPriceFromSymbol:[[[DAO.sharedDAO fetchCompanyList] valueForKeyPath:@"tickerSymbol"] componentsJoinedByString:@","]];
-    }
-    
-    
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -61,49 +83,94 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)getStockPrice:(NSDictionary<NSString *, NSNumber *> *)price {
-    
-    for(NSString *key in price.allKeys){
-        
-        Company *company = self.companyList[[self.companyList indexOfObject:[[self.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
-        
-        [company setPrice:[price valueForKey:key]];
-        [DAO.sharedDAO setCompanyPrice:company];
-        //NSLog(@"price for %@ = %@", key, company.price);
-    }
-    
-    [self.companyList release];
-    self.companyList = [[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList];
-    [self.tableView reloadData];
-}
-
--(void)stockFetchDidFinishDownloading:(BOOL) status{
-
-//    if(status){
-//        [self.tableView reloadData];
-//    }
-}
-
--(void)addItem{
-    
-    self.insertCompanyViewController = [[InsertCompany alloc] init];
-    [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
-
-}
-
--(void)setEditing:(BOOL)editing animated:(BOOL)animated{
-    [super setEditing:editing animated:animated];
-    [self.tableView setEditing:editing];
-    
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+
+//MARK: Set Navigation Bar Items
+
+-(void)addItem{
+    
+    self.insertCompanyViewController = [[[InsertCompany alloc] init] autorelease];
+    self.insertCompanyViewController.edit = [NSNumber numberWithBool:true];
+    [self.navigationController pushViewController:_insertCompanyViewController animated:YES];
+
+}
+
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    
+    if(editing){
+        
+        [self.btnUndoOutlet setHidden:false];
+        [self.btnRedoOutlet setHidden:false];
+    }else{
+
+        [self.btnUndoOutlet setHidden:true];
+        [self.btnRedoOutlet setHidden:true];
+    }
+    
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing];
+    
+}
+
+- (IBAction)btnUndoAction:(id)sender {
+    //NSLog(@"UNDO");
+    [DAO.sharedDAO.managedObjectContext.undoManager undo];
+   // [DAO.sharedDAO.managedObjectContext.undoManager undo];
+    [DAO.sharedDAO saveContext];
+    [self loadCompanies];
+}
+
+- (IBAction)btnRedoAction:(id)sender {
+    NSLog(@"REDO");
+    
+    [DAO.sharedDAO.managedObjectContext redo];
+     [self loadCompanies];
+}
+
+#pragma mark - Stock Fetcher
+
+- (void)getStockPrice:(NSDictionary<NSString *, NSNumber *> *)price {
+    
+    for(NSString *key in price.allKeys){
+        
+        Company *company = self.companyList[[self.companyList indexOfObject:[[self.companyList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.tickerSymbol == %@", key]] objectAtIndex:0]]];
+        //
+        CompanyMO *setPrice = [DAO.sharedDAO getCompanyFromCoreData:company];
+        [setPrice setPrice:[price valueForKey:key].floatValue];
+        
+    }
+    
+    self.companyList = [[[NSMutableArray alloc] initWithArray:DAO.sharedDAO.fetchCompanyList] autorelease];
+    
+    [self.tableView reloadData];
+}
+
+-(void)stockFetchDidFinishDownloading:(BOOL) status{
+    
+}
+
+#pragma mark - Image Fetcher
+
+- (void)getImageFromURL:(NSDictionary<NSString *,NSData *> *)imageURL {
+    
+    [DAO.sharedDAO.companyImages removeAllObjects];
+    [DAO.sharedDAO.companyImages addEntriesFromDictionary:imageURL];
+    
+    [self.tableView reloadData];
+}
+
+
+
 #pragma mark - Table view data source
+
+
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -119,40 +186,26 @@
     // Return the number of rows in the section.
     
     if(self.companyList.count != 0){
+        //NSLog(@"In Here");
+        self.tableView.backgroundView = [[[UIView alloc] initWithFrame:self.tableView.frame] autorelease];
         
+        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        [backgroundView release];
         return [self.companyList count];
         
     }else{
-        
-    
-        UIView *backgroundView = [[UIView alloc] initWithFrame:tableView.frame];
-        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width * 0.5 - 50, tableView.frame.size.height * 0.5 - 50, 100, 100)];
-        
-        //[imageView setBackgroundColor:UIColor.blackColor];
-        [imageView setImage:[UIImage imageNamed:@"emptystate-homeView"]];
-        [backgroundView addSubview: imageView];
-        
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        
-        
-        UITextView *noDataLabel         = [[UITextView alloc] initWithFrame:CGRectMake(imageView.frame.origin.x - 50,imageView.frame.origin.y + imageView.frame.size.height * 1.25, imageView.frame.size.width * 2, imageView.frame.size.height * 2)];
-        
-        noDataLabel.text             = @"You don't have any current companies added";
-        noDataLabel.textColor        = [UIColor grayColor];
-        noDataLabel.backgroundColor = UIColor.blackColor;
-        noDataLabel.textAlignment    = NSTextAlignmentCenter;
-        [noDataLabel setFont:[UIFont fontWithName:@"SF-Pro-Text-Regular" size:40.0f]];
-        
-        [backgroundView addSubview:noDataLabel];
-        
-        
-        tableView.backgroundView =  backgroundView;
 
+          tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+ 
+        emptyView.view.frame = self.view.bounds;
+       // [self.view addSubview:emptyView.view];
+        tableView.backgroundView = emptyView.view;
+        self.view.backgroundColor = UIColor.redColor;
     }
     
     return 0;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -167,29 +220,23 @@
     Company *company = [self.companyList objectAtIndex:[indexPath row]];
     
     UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, cell.bounds.size.height, cell.bounds.size.height)];
-    UIImage *img = [UIImage imageNamed: company.image];
+    UIImage *img = [UIImage imageWithData:[DAO.sharedDAO.companyImages objectForKey:company.image]];
+    
     view.image = img;
     view.contentMode = UIViewContentModeScaleAspectFit;
     
-    UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)];
-    UILabel *detailCellLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 0.5 - 20, 0, cell.bounds.size.width - 10, cell.bounds.size.height)];
+    UILabel *cellLabel = [[[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 1.5, 0, cell.bounds.size.width, cell.bounds.size.height)] autorelease];
+    
+    UILabel *detailCellLabel = [[[UILabel alloc] initWithFrame:CGRectMake(view.bounds.size.width * 0.5 - 20, 0, cell.bounds.size.width - 10, cell.bounds.size.height)] autorelease];
+    
     detailCellLabel.textAlignment = NSTextAlignmentRight;
     detailCellLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
     cellLabel.text = company.name;
     cellLabel.backgroundColor = UIColor.clearColor;
     
-    cell.textLabel.text = company.name;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", company.name, company.tickerSymbol]; //company.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", company.price.floatValue];
     cell.imageView.image = img;
-    
-    //[cell.contentView addSubview:view];
-    //[cell.contentView addSubview:cellLabel];
-    //[cell.contentView addSubview:detailCellLabel];
-    
-    
-    
-    
-    
     
     return cell;
     
@@ -275,7 +322,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([self.tableView isEditing]){
-        self.insertCompanyViewController = [[InsertCompany alloc] init];
+        self.insertCompanyViewController = [[[InsertCompany alloc] init] autorelease];
         
         self.insertCompanyViewController.company = [self.companyList objectAtIndex:[indexPath row]];
         
@@ -284,7 +331,7 @@
         
     }else{
         
-        self.productViewController = [[ProductVC alloc]init];
+        self.productViewController = [[[ProductVC alloc]init] autorelease];
         self.productViewController.title = [self.companyList objectAtIndex:[indexPath row]].name;
         self.productViewController.company = [self.companyList objectAtIndex:[indexPath row]];
         
@@ -300,21 +347,18 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)dealloc {
     [_tableView release];
     [_companyList release];
     [_insertCompanyViewController release];
     [_productViewController release];
+    [_btnUndoOutlet release];
+    [_btnRedoOutlet release];
+    [emptyView release];
+    [_fetcher release];
+    [_imgFetcher release];
+
     [super dealloc];
 }
 

@@ -12,6 +12,11 @@
 @interface InsertCompany : UIViewController <UITextFieldDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyName;
 @property (retain, nonatomic) IBOutlet UITextField *lblCompanyImage;
+@property (retain, nonatomic) IBOutlet UITextField *lblStockSymbol;
 @property (retain, nonatomic) Company *company;
+
+@property (retain, nonatomic) NSNumber *edit;
+@property (retain, nonatomic) IBOutlet UIButton *btnDelete;
+- (IBAction)btnDeleting:(id)sender;
 
 @end

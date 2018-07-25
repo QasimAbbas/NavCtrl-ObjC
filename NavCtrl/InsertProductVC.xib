@@ -6,13 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InsertProductVC">
             <connections>
+                <outlet property="btnDelete" destination="TyF-EH-GwV" id="lK0-xE-DvP"/>
                 <outlet property="txtProductImage" destination="hHI-4m-4y1" id="eEn-7I-QAO"/>
                 <outlet property="txtProductName" destination="8p5-P7-Sai" id="g2a-ue-8Vq"/>
                 <outlet property="txtProductURL" destination="VJp-3b-oOR" id="tQT-Hv-XSZ"/>
@@ -24,27 +24,36 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="iPhone" placeholder="Product Image" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-4m-4y1" userLabel="Company Name">
-                    <rect key="frame" x="62" y="318" width="250.5" height="30"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Image" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-4m-4y1" userLabel="Product Name">
+                    <rect key="frame" x="62" y="320" width="250.5" height="26"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="hHI-4m-4y1" secondAttribute="height" multiplier="50:6" id="KPu-qX-xcp"/>
+                        <constraint firstAttribute="width" constant="250.5" id="Aem-eB-RTJ"/>
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8p5-P7-Sai" userLabel="Company Name">
-                    <rect key="frame" x="62.5" y="252.5" width="250.5" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://www.apple.com" placeholder="Product Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJp-3b-oOR" userLabel="Company Name">
-                    <rect key="frame" x="62" y="383.5" width="250.5" height="30"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Macbook Pro" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8p5-P7-Sai" userLabel="Image URL">
+                    <rect key="frame" x="62.5" y="258.5" width="250.5" height="26"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Product URL" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJp-3b-oOR" userLabel="ProductURL">
+                    <rect key="frame" x="62" y="381.5" width="250.5" height="26"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TyF-EH-GwV">
+                    <rect key="frame" x="164.5" y="454" width="45" height="30"/>
+                    <state key="normal" title="Delete">
+                        <color key="titleColor" red="1" green="0.13182058469999999" blue="0.00033646567799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <connections>
+                        <action selector="btnDeleting:" destination="-1" eventType="touchUpInside" id="jRS-ac-uXZ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -54,13 +63,15 @@
                 <constraint firstItem="hHI-4m-4y1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WBl-so-VVf"/>
                 <constraint firstItem="hHI-4m-4y1" firstAttribute="top" secondItem="8p5-P7-Sai" secondAttribute="bottom" constant="35.5" id="Yng-Yi-6kb"/>
                 <constraint firstItem="VJp-3b-oOR" firstAttribute="width" secondItem="hHI-4m-4y1" secondAttribute="width" id="ZNR-5i-osD"/>
+                <constraint firstItem="TyF-EH-GwV" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="dD8-Al-3qM"/>
+                <constraint firstItem="TyF-EH-GwV" firstAttribute="top" secondItem="VJp-3b-oOR" secondAttribute="bottom" constant="46.5" id="dZW-NR-HV2"/>
                 <constraint firstItem="8p5-P7-Sai" firstAttribute="width" secondItem="hHI-4m-4y1" secondAttribute="width" id="eBt-xT-TP6"/>
-                <constraint firstItem="hHI-4m-4y1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="30:80" id="haK-1o-HaM"/>
                 <constraint firstItem="hHI-4m-4y1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="jpM-mJ-XWX"/>
                 <constraint firstItem="VJp-3b-oOR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ppx-y1-UKP"/>
                 <constraint firstItem="8p5-P7-Sai" firstAttribute="height" secondItem="hHI-4m-4y1" secondAttribute="height" id="tl3-PC-VCv"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="55.5" y="53.5"/>
         </view>
     </objects>
 </document>

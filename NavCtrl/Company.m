@@ -30,7 +30,7 @@
     if (self) {
         _name = @"";
         _products = [[NSMutableArray alloc] init];
-        _image = @"iPhone";
+        _image = @"";
         _tickerSymbol = @"";
         _price = [[NSNumber alloc] init];
     }

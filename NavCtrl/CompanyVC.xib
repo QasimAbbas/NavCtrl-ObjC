@@ -6,11 +6,19 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompanyVC">
             <connections>
+                <outlet property="btnRedoOutlet" destination="59S-g5-IQb" id="jvH-7f-WMs"/>
+                <outlet property="btnUndoOutlet" destination="NHi-Ro-B07" id="5us-Da-lXd"/>
                 <outlet property="tableView" destination="b9s-ce-C0v" id="jhV-HN-9fx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,15 +30,47 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-ce-C0v">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="9E9-mh-79V"/>
                         <outlet property="delegate" destination="-1" id="rfX-ae-JqV"/>
                     </connections>
                 </tableView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHi-Ro-B07" userLabel="Undo">
+                    <rect key="frame" x="0.0" y="607" width="187" height="60"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
+                    <state key="normal" title="Undo">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnUndoAction:" destination="-1" eventType="touchUpInside" id="c89-2k-yyg"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59S-g5-IQb">
+                    <rect key="frame" x="188" y="607" width="187" height="60"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
+                    <state key="normal" title="Redo">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnRedoAction:" destination="-1" eventType="touchUpInside" id="sH9-x0-QsO"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="NHi-Ro-B07" secondAttribute="bottom" id="5zZ-VK-o30"/>
+                <constraint firstItem="59S-g5-IQb" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.09" id="81I-Sl-CBB"/>
+                <constraint firstAttribute="trailing" secondItem="59S-g5-IQb" secondAttribute="trailing" id="A51-H0-pi1"/>
+                <constraint firstItem="NHi-Ro-B07" firstAttribute="height" secondItem="59S-g5-IQb" secondAttribute="height" id="CTw-s3-Ok5"/>
+                <constraint firstItem="NHi-Ro-B07" firstAttribute="width" secondItem="59S-g5-IQb" secondAttribute="width" id="HmT-1z-mDA"/>
+                <constraint firstItem="59S-g5-IQb" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="RLx-b2-xWf"/>
+                <constraint firstAttribute="bottom" secondItem="59S-g5-IQb" secondAttribute="bottom" id="jmx-si-pvL"/>
+                <constraint firstItem="NHi-Ro-B07" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xq9-cI-Wp6"/>
+            </constraints>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
     </objects>

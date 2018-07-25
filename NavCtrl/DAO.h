@@ -34,4 +34,9 @@
 -(void)removeProduct:(Product *) product inCompany:(Company *)company;
 -(ProductMO *)getProduct:(Product *)product fromCompany:(Company *)company;
 -(NSArray *)fetchProductListFromCompany:(Company *)company;
+
+//Image
+@property(nonatomic, retain)NSMutableDictionary<NSString *, NSData *> *companyImages;
+@property(nonatomic, retain)NSMutableDictionary<NSString *, NSData *> *productImages;
+
 @end

@@ -20,10 +20,13 @@
 		48A656D818163BF200746D36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48A656D618163BF200746D36 /* InfoPlist.strings */; };
 		48A656DA18163BF200746D36 /* NavCtrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656D918163BF200746D36 /* NavCtrlTests.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		9605248320F80A79008F2399 /* NoProducts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9605248120F80A79008F2399 /* NoProducts.m */; };
+		9605248420F80A79008F2399 /* NoProducts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9605248220F80A79008F2399 /* NoProducts.xib */; };
 		9631D16F20EAFF6D0098F406 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 9631D16E20EAFF6D0098F406 /* Defaults.m */; };
 		963B9E0D20D860960026D411 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B9E0C20D860960026D411 /* DAO.m */; };
 		9642BC5320E28193005BCC09 /* CompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9642BC5120E28193005BCC09 /* CompanyCell.m */; };
 		9642BC5420E28193005BCC09 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9642BC5220E28193005BCC09 /* CompanyCell.xib */; };
+		9658A4C720F93DC100C8EDBB /* ImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9658A4C620F93DC100C8EDBB /* ImageFetcher.m */; };
 		9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */; };
 		965F4E7220E19A6900CB1DE0 /* StockFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F4E7120E19A6900CB1DE0 /* StockFetcher.m */; };
 		9697C8FA20D8376E00BAB5BA /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 9697C8F920D8376E00BAB5BA /* Company.m */; };
@@ -73,6 +76,9 @@
 		48A656D718163BF200746D36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		48A656D918163BF200746D36 /* NavCtrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavCtrlTests.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		9605248020F80A79008F2399 /* NoProducts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoProducts.h; sourceTree = "<group>"; };
+		9605248120F80A79008F2399 /* NoProducts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoProducts.m; sourceTree = "<group>"; };
+		9605248220F80A79008F2399 /* NoProducts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoProducts.xib; sourceTree = "<group>"; };
 		9631D16D20EAFF6D0098F406 /* Defaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defaults.h; sourceTree = "<group>"; };
 		9631D16E20EAFF6D0098F406 /* Defaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defaults.m; sourceTree = "<group>"; };
 		963B9E0B20D860960026D411 /* DAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
@@ -80,6 +86,9 @@
 		9642BC5020E28193005BCC09 /* CompanyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCell.h; sourceTree = "<group>"; };
 		9642BC5120E28193005BCC09 /* CompanyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCell.m; sourceTree = "<group>"; };
 		9642BC5220E28193005BCC09 /* CompanyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyCell.xib; sourceTree = "<group>"; };
+		9658A4C420F93CCA00C8EDBB /* ImageFetcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageFetcherDelegate.h; sourceTree = "<group>"; };
+		9658A4C520F93DC100C8EDBB /* ImageFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageFetcher.h; sourceTree = "<group>"; };
+		9658A4C620F93DC100C8EDBB /* ImageFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFetcher.m; sourceTree = "<group>"; };
 		9659AEE420C1FF1E0073FCB5 /* ProductWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebViewController.h; sourceTree = "<group>"; };
 		9659AEE520C1FF1E0073FCB5 /* ProductWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebViewController.m; sourceTree = "<group>"; };
 		965F4E7020E19A6900CB1DE0 /* StockFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcher.h; sourceTree = "<group>"; };
@@ -167,6 +176,9 @@
 				9E62FF231E4A33F1002D55B8 /* ProductVC.h */,
 				9E62FF241E4A33F1002D55B8 /* ProductVC.m */,
 				9E62FF251E4A33F1002D55B8 /* ProductVC.xib */,
+				9605248020F80A79008F2399 /* NoProducts.h */,
+				9605248120F80A79008F2399 /* NoProducts.m */,
+				9605248220F80A79008F2399 /* NoProducts.xib */,
 			);
 			name = ProductViewController;
 			sourceTree = "<group>";
@@ -210,6 +222,7 @@
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				965F4E7420E19A8800CB1DE0 /* StockFetcher */,
+				9658A4C320F93CA000C8EDBB /* ImageFetcher */,
 				96D90D0F20D83120004779CE /* DataObjects */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				96DFE48A20EAFB260098BB0A /* NavCtrl.xcdatamodeld */,
@@ -249,6 +262,16 @@
 				48A656D618163BF200746D36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9658A4C320F93CA000C8EDBB /* ImageFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				9658A4C520F93DC100C8EDBB /* ImageFetcher.h */,
+				9658A4C620F93DC100C8EDBB /* ImageFetcher.m */,
+				9658A4C420F93CCA00C8EDBB /* ImageFetcherDelegate.h */,
+			);
+			name = ImageFetcher;
 			sourceTree = "<group>";
 		};
 		9659AEE720C1FF250073FCB5 /* ProductWebViewController */ = {
@@ -398,6 +421,7 @@
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				9E62FF221E4A33DC002D55B8 /* CompanyVC.xib in Resources */,
 				9E62FF271E4A33F1002D55B8 /* ProductVC.xib in Resources */,
+				9605248420F80A79008F2399 /* NoProducts.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				96FBB44D20F56D1300FD91F7 /* SF-Pro-Text-Regular.otf in Resources */,
 				96F0697F20DC5FF70049A901 /* InsertProductVC.xib in Resources */,
@@ -431,6 +455,8 @@
 				9659AEE620C1FF1E0073FCB5 /* ProductWebViewController.m in Sources */,
 				96D90D1220D8313A004779CE /* Product.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
+				9658A4C720F93DC100C8EDBB /* ImageFetcher.m in Sources */,
+				9605248320F80A79008F2399 /* NoProducts.m in Sources */,
 				96FBB44A20F5679900FD91F7 /* NoCompanies.m in Sources */,
 				96F0697E20DC5FF70049A901 /* InsertProductVC.m in Sources */,
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,

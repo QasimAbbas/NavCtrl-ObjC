@@ -6,9 +6,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoCompanies">
             <connections>
@@ -20,21 +27,46 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tlf-dT-lr9">
-                    <rect key="frame" x="131" y="134" width="113" height="113"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptystate-homeView" translatesAutoresizingMaskIntoConstraints="NO" id="Tlf-dT-lr9">
+                    <rect key="frame" x="131" y="185" width="113" height="113"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Tlf-dT-lr9" secondAttribute="height" multiplier="1:1" id="tOH-3g-hs7"/>
+                    </constraints>
                 </imageView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="You currenlty don't have any companies added." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="492-kr-dXQ">
-                    <rect key="frame" x="88" y="269" width="199" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="You currenlty don't have any companies added." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="492-kr-dXQ">
+                    <rect key="frame" x="76.5" y="313" width="222" height="74"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="492-kr-dXQ" secondAttribute="height" multiplier="15:5" id="qeU-kB-MhH"/>
+                    </constraints>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ2-cf-H8d">
+                    <rect key="frame" x="134.5" y="385" width="106" height="30"/>
+                    <state key="normal" title="+Add Company"/>
+                    <connections>
+                        <action selector="addCompany:" destination="-1" eventType="touchUpInside" id="yJe-Yb-5eI"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ZJ2-cf-H8d" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5Yi-3H-GLW"/>
+                <constraint firstItem="Tlf-dT-lr9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="E27-ad-GvK"/>
+                <constraint firstItem="Tlf-dT-lr9" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="113:667" id="Foi-3K-x33"/>
+                <constraint firstItem="492-kr-dXQ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="2:6" id="cQN-Si-0xe"/>
+                <constraint firstItem="492-kr-dXQ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="1.05" id="k0X-YK-hj4"/>
+                <constraint firstItem="ZJ2-cf-H8d" firstAttribute="top" secondItem="492-kr-dXQ" secondAttribute="bottom" constant="-2.5" id="kvK-fg-gg6"/>
+                <constraint firstItem="492-kr-dXQ" firstAttribute="top" secondItem="Tlf-dT-lr9" secondAttribute="bottom" constant="15" id="v6i-8V-hsp"/>
+                <constraint firstItem="492-kr-dXQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wqg-Mf-juz"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="36.5" y="59.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="emptystate-homeView" width="72" height="72"/>
+    </resources>
 </document>

@@ -12,6 +12,7 @@
 
 
 -(void)fetchStockPriceFromSymbol:(NSString *)symbol{
+    
     if([self.delegate respondsToSelector:@selector(stockFetchDidStart)]){
         [self.delegate stockFetchDidStart];
     }
@@ -29,23 +30,14 @@
         if(error){
             
             NSLog(@"Stock error %@", [error localizedDescription]);
-//            if([self.delegate respondsToSelector:@selector(stockFetchDidFailWithError:)]){
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.delegate stockFetchDidFailWithError:error];
-//                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
-//                        [self.delegate stockFetchDidFinishDownloading:true];
-//                    }
-//
-//                });
-//            }
+
         }else{
             if([self.delegate respondsToSelector:@selector(getStockPrice:)]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                   // NSDictionary *symbolAndPrice = [[NSDictionary alloc] init];
+                    
                     NSMutableDictionary<NSString *, NSNumber *> *symbolPrice = [[NSMutableDictionary alloc] init];
-                    //NSLog([object valueForKey:@"price"]);
                     
                     for(NSString *key in jsonObject.allKeys){
                         NSNumber *num = [[jsonObject objectForKey:key] valueForKey:@"price"];
@@ -56,21 +48,21 @@
                     [self.delegate getStockPrice:dict];
                     
                     [symbolPrice release];
-//                    if([self.delegate respondsToSelector:@selector(stockFetchDidFinishDownloading:)]){
-//                        [self.delegate stockFetchDidFinishDownloading:true];
-//                    }
                     
                 });
             }
             
         }
-        
     }];
     
     [session resume];
-                                     
     
+}
+
+-(void)dealloc{
     
+    [_delegate release];
+    [super dealloc];
 }
 
 @end

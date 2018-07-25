@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wCn-9Y-aIr">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                     <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <wkWebViewConfiguration key="configuration">
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -36,13 +36,14 @@
                 </activityIndicatorView>
             </subviews>
             <constraints>
-                <constraint firstItem="wCn-9Y-aIr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="76s-vr-rMu"/>
+                <constraint firstItem="wCn-9Y-aIr" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="BHq-ut-q9T"/>
                 <constraint firstItem="aFE-iP-fbu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MJY-fu-EWW"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="U3f-hn-tQQ"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iHa-7d-Scr"/>
                 <constraint firstItem="wCn-9Y-aIr" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="pDu-rT-EC3"/>
                 <constraint firstItem="aFE-iP-fbu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qXI-B7-AWA"/>
             </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="130.5" y="53.5"/>
         </view>

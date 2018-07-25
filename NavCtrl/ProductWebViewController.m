@@ -18,12 +18,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(itemEdit)];
     _webView.navigationDelegate = self;
+    
     
     NSURL *url = [NSURL URLWithString:_urlString];
     NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestURL];
     // Do any additional setup after loading the view.
+}
+
+-(void)itemEdit{
+    
+     NSLog(@"COMPANY BEFORE WEB %@", self.company.name);
+    
+    self.insertProductVC = [[[InsertProductVC alloc] init] autorelease];
+    self.insertProductVC.company = self.company;
+    self.insertProductVC.title = self.company.name;
+    self.insertProductVC.product = self.product;
+    self.insertProductVC.edit = [NSNumber numberWithBool:false];
+    
+    [self.navigationController pushViewController:self.insertProductVC animated:true];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,6 +63,11 @@
 - (void)dealloc {
     [_webView release];
     [_activityIndicator release];
+    [_urlString release];
+    [_company release];
+    [_product release];
+    [_insertProductVC release];
+    
     [super dealloc];
 }
 @end

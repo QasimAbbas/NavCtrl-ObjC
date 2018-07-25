@@ -1,26 +1,25 @@
 //
-//  NoCompanies.m
+//  NoProducts.m
 //  NavCtrl
 //
-//  Created by Qasim Abbas on 7/10/18.
+//  Created by Qasim Abbas on 7/12/18.
 //  Copyright © 2018 Aditya Narayan. All rights reserved.
 //
 
-#import "NoCompanies.h"
-#import "InsertCompany.h"
-#import "CompanyVC.h"
+#import "NoProducts.h"
 #import "NavControllerAppDelegate.h"
+#import "ProductVC.h"
 
-@interface NoCompanies (){
-    NavControllerAppDelegate *navController;
-}
+@interface NoProducts ()
 
 @end
 
-@implementation NoCompanies
+@implementation NoProducts
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _addProduct = [[InsertProductVC alloc] init];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -28,6 +27,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation
@@ -39,19 +40,18 @@
 }
 */
 
-
-- (IBAction)addCompany:(id)sender {
-    navController = (NavControllerAppDelegate *)[UIApplication sharedApplication].delegate;
+- (IBAction)btnAddProduct:(id)sender {
     
-    NSLog(@"SELECTED ADD");
-    InsertCompany *insert = [[[InsertCompany alloc] init] autorelease];
-    [navController.navigationController pushViewController:insert animated:true];
-    
-    
+    NavControllerAppDelegate *navController = (NavControllerAppDelegate *)[UIApplication sharedApplication].delegate;
+    [self.addProduct setCompany:self.company];
+    [navController.navigationController pushViewController:self.addProduct animated:true];
 }
+
 -(void)dealloc{
+   
+    [_addProduct release];
+    [_company release];
     
-    [navController release];
     [super dealloc];
 }
 @end
